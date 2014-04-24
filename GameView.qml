@@ -37,7 +37,6 @@ Game {
     MenuScene {
         id: menuScene
         muted: false
-        highscore: playingScene.highscore
         onPlayClicked: game.currentScene = playingScene
         onReplayClicked: { playingScene.reset(); game.currentScene = playingScene; }
         onAboutClicked: game.currentScene = aboutScene
