@@ -18,6 +18,7 @@
 
 import QtQuick 2.2
 import Bacon2D 1.0
+import U1db 1.0 as U1db
 
 Game {
     id: game
@@ -36,7 +37,6 @@ Game {
     MenuScene {
         id: menuScene
         muted: true
-        highscore: playingScene.highscore
         onPlayClicked: game.currentScene = playingScene
         onReplayClicked: { playingScene.reset(); game.currentScene = playingScene; }
         onAboutClicked: game.currentScene = aboutScene
@@ -46,5 +46,19 @@ Game {
         id: aboutScene
         onBackClicked: game.currentScene = menuScene
     }
+
+    SettingsStorage {
+        id: settingsStorage
+        appName: "pathwind"
+    }
+
+    SettingsProperty {
+        id: highscore
+        database: settingsStorage
+
+        name: "highscore"
+        defaultValue: 0
+    }
+
 }
 

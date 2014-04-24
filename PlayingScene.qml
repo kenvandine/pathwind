@@ -26,7 +26,8 @@ Scene {
     height: parent.height * 2
     width: parent.width
     property bool muted
-    property int highscore: 0
+    //property int highscore: 0
+    property variant settings
 
     onRunningChanged: {
         if (!running) 
@@ -175,8 +176,8 @@ Scene {
             behavior: ScriptBehavior {
                 script: {
                     screen.score++;
-                    if (screen.score > highscore)
-                        highscore = screen.score;
+                    if (screen.score > highscore.value)
+                        highscore.value = screen.score;
                     var r = screen.score % 5;
                     if (r === 0) {
                         var i = Math.floor(Math.random() * world.obstacles.length);
