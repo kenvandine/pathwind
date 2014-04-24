@@ -18,6 +18,7 @@
 
 import QtQuick 2.2
 import Bacon2D 1.0
+import U1db 1.0 as U1db
 
 Game {
     id: game
@@ -60,6 +61,19 @@ Game {
         fuelPlus: playingScene.fuelPlus
         muted: playingScene.muted
         onTogglePause: playingScene.running = !playingScene.running
+    }
+
+    SettingsStorage {
+        id: settingsStorage
+        appName: "pathwind"
+    }
+
+    SettingsProperty {
+        id: highscore
+        database: settingsStorage
+
+        name: "highscore"
+        defaultValue: 0
     }
 }
 

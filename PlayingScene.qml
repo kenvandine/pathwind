@@ -26,7 +26,6 @@ Scene {
     height: parent.height * 2
     width: parent.width
     property bool muted
-    property int highscore: 0
     property alias fuel: player.fuel
     property alias fuelPlus: player.fuelPlus
 
@@ -187,23 +186,28 @@ Scene {
                     screen.score++;
                     if (screen.score > highscore.value)
                         highscore.value = screen.score;
-                }
-            }
-        }
+                    var r = screen.score % 5;
+                    if (r === 0) {
+                        var i = Math.floor(Math.random() * world.obstacles.length);
+                        var comp = Qt.createComponent(world.obstacles[i]+".qml");
+                        if (comp.status == Component.Ready) {
+                            var object = comp.createObject(world,
+                                                           {"x": player.x + world.width,
+                                                            "y": (world.height/2 * Math.random()) + world.height/2,
+                                                            "linearVelocity.x": -10});
+                            if (!object.fixedRotation)
+                                object.rotation = 10 + Math.random() * 340;
+                            world.createdObstacles.push(object);
+                        }
 
-        Entity {
-            updateInterval: 5000
-            behavior: ScriptBehavior {
-                script: {
-                    var i = Math.floor(Math.random() * world.obstacles.length);
-                    var comp = Qt.createComponent(world.obstacles[i]+".qml");
-                    if (comp.status == Component.Ready) {
-                        var object = comp.createObject(world,
-                                                       {"x": player.x + world.width,
-                                                        "y": world.height - (world.height/4 * Math.random()),
-                                                        "linearVelocity.x": -10});
-                        if (!object.fixedRotation)
-                            object.rotation = 10 + Math.random() * 340;
+                        if (screen.score < world.levelLength)
+                            screen.levelCount = 1;
+                        if (screen.score > ((screen.levelCount + 1) * world.levelLength)) {
+                            screen.levelCount++;
+                            var comp = Qt.createComponent("Fan.qml");
+                            if (comp.status == Component.Ready)
+                                world.fan = comp.createObject(world, {"x": player.x + world.width});
+                        }
                     }
                 }
             }

@@ -30,7 +30,6 @@ Scene {
 
     property bool replayEnabled: false
     property bool muted: true
-    property int highscore
 
     Item {
         anchors.centerIn: parent
@@ -43,7 +42,7 @@ Scene {
                 x: 224
                 y: 62
                 rotation: -12
-                value: highscore
+                value: highscore.value
                 transformOrigin: Item.TopLeft
             }
 
