@@ -186,6 +186,7 @@ Scene {
                     screen.score++;
                     if (screen.score > highscore.value)
                         highscore.value = screen.score;
+<<<<<<< HEAD
                 }
             }
         }
@@ -204,6 +205,30 @@ Scene {
                         if (!object.fixedRotation)
                             object.rotation = 10 + Math.random() * 340;
                         world.createdObstacles.push(object);
+=======
+                    var r = screen.score % 5;
+                    if (r === 0) {
+                        var i = Math.floor(Math.random() * world.obstacles.length);
+                        var comp = Qt.createComponent(world.obstacles[i]+".qml");
+                        if (comp.status == Component.Ready) {
+                            var object = comp.createObject(world,
+                                                           {"x": player.x + world.width,
+                                                            "y": (world.height/2 * Math.random()) + world.height/2,
+                                                            "linearVelocity.x": -10});
+                            if (!object.fixedRotation)
+                                object.rotation = 10 + Math.random() * 340;
+                            world.createdObstacles.push(object);
+                        }
+
+                        if (screen.score < world.levelLength)
+                            screen.levelCount = 1;
+                        if (screen.score > ((screen.levelCount + 1) * world.levelLength)) {
+                            screen.levelCount++;
+                            var comp = Qt.createComponent("Fan.qml");
+                            if (comp.status == Component.Ready)
+                                world.fan = comp.createObject(world, {"x": player.x + world.width});
+                        }
+>>>>>>> use U1db to store the highscore
                     }
                 }
             }
