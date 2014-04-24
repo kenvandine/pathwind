@@ -18,9 +18,24 @@
 
 import QtQuick 2.2
 import Bacon2D 1.0
+import Ubuntu.Components 0.1
 
-GameView {
-    id: gameView
+MainView {
     width: 854
     height: 480
+    applicationName: "com.ubuntu.developer.ken-vandine.pathwind"
+
+    Page {
+        anchors.fill: parent
+        OrientationHelper {
+                orientationAngle: parent.width > parent.height ? 0 : 90
+
+            GameView {
+                id: gameView
+                anchors.fill: parent
+                width: parent.widht
+                height: parent.height
+            }
+        }
+    }
 }
