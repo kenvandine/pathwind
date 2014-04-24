@@ -19,6 +19,7 @@
 
 import QtQuick 2.2
 import Bacon2D 1.0
+import Ubuntu.Components 0.1
 
 Entity {
     id: root
@@ -32,8 +33,8 @@ Entity {
     height: 447
     fixedRotation: true
     bodyType: Body.Dynamic
-    linearVelocity.x: -5
     property bool running: false
+    linearVelocity.x: -(units.gu(1)/2)
 
     fixtures: Box {
         anchors.fill: parent
