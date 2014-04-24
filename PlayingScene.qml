@@ -26,8 +26,6 @@ Scene {
     height: parent.height * 2
     width: parent.width
     property bool muted
-    //property int highscore: 0
-    property variant settings
 
     onRunningChanged: {
         if (!running) 
