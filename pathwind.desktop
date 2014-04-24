@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Pathwind
+Exec=/usr/bin/qmlscene -I . main.qml
+Icon=pathwind.png
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true
