@@ -203,7 +203,6 @@ Scene {
                                                         "linearVelocity.x": -10});
                         if (!object.fixedRotation)
                             object.rotation = 10 + Math.random() * 340;
-                        world.createdObstacles.push(object);
                     }
                 }
             }
@@ -216,7 +215,6 @@ Scene {
                     var object = fanComp.createObject(world,
                                                       {"x": player.x + (world.width * 2)});
                     object.running = true;
-                    world.createdObstacles.push(object);
                     screen.levelCount++;
                 }
             }
@@ -230,31 +228,6 @@ Scene {
         Component {
             id: birdComp
             Bird {}
-        }
-
-        Component {
-            id: fanComp
-            Fan {
-                onRunningChanged: {
-                    if (running)
-                        fanSound.play();
-                    else
-                        fanSound.stop();
-                }
-                onXChanged: {
-                    if (x < -world.width) {
-                        running = false;
-                        destroy();
-                    }
-                }
-                SoundEffect {
-                    id: fanSound
-                    muted: screen.muted
-                    volume: Math.max(0.0, Math.min(0.4, Math.abs(1.0 - (Math.abs(x - player.x) / 150) / 10)));
-                    source: "sounds/fan.wav"
-                    loops: SoundEffect.Infinite
-                }
-            }
         }
 
         Component {
