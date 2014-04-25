@@ -29,7 +29,7 @@ Body {
         sensor: true
 
         onEndContact: {
-            if (other.parent.objectName !== "player") {
+            if ((other.parent.objectName !== "player") && (other.parent.objectName !== "fan")) {
                 other.parent.destroy();
             }
         }

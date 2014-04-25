@@ -34,8 +34,8 @@ Entity {
     fixedRotation: true
     bodyType: Body.Dynamic
     linearVelocity.x: -(units.gu(1)/2)
+    property bool running: false
 
-    property bool running: true
     fixtures: Box {
         anchors.fill: parent
         sensor: true

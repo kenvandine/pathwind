@@ -20,20 +20,21 @@
 import QtQuick 2.2
 import Bacon2D 1.0
 
-Obstacle {
+Entity {
     id: fuel
+    objectName: "fuel"
     width: 90
     height: 77
     fixedRotation: true
-    gravityScale: -2
+    linearVelocity.x: -10
     linearVelocity.y: 0
+    bodyType: Body.Kinematic
 
     fixtures: Box {
         width: 36
         height: 36
-        density: 0.1
+        density: 0
         friction: 0.2
-        restitution: 0.8
         sensor: true
         categories: Box.Category3
         collidesWith: Box.Category4

@@ -20,19 +20,36 @@ import QtQuick 2.2
 import Bacon2D 1.0
 
 Entity {
+    id: obstacle
+    objectName: "obstacle"
     bodyType: Body.Dynamic
-    bullet: true
+    bullet: false
     sleepingAllowed: false
     fixedRotation: false
-    property real density: 1
+    angularDamping: 0.5
+    linearDamping: 0.3
     linearVelocity.y: 2
     width: Math.max(image.width, 1)
     height: Math.max(image.height, 1)
 
     property var path
+    property real density: 1
 
     Image {
         id: image
         source: path
+    }
+
+    behavior: ScriptBehavior {
+        script: {
+            if (obstacle.linearVelocity.y < 2) {
+                obstacle.linearVelocity.y += 0.1;
+                //print (obstacle.linearVelocity.y);
+            }
+            if (obstacle.linearVelocity.x > -5) {
+                obstacle.linearVelocity.x -= 1;
+                //print (obstacle.linearVelocity.x);
+            }
+        }
     }
 }

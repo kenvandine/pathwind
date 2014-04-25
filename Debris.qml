@@ -22,7 +22,7 @@ import Bacon2D 1.0
 Entity {
     objectName: "debris"
     bodyType: Body.Dynamic
-    bullet: true
+    bullet: false
     sleepingAllowed: false
     fixedRotation: false
 

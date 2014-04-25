@@ -20,19 +20,21 @@
 import QtQuick 2.2
 import Bacon2D 1.0
 
-Obstacle {
+Entity {
+    objectName: "bird"
     width: 90
     height: 77
-    linearVelocity.x: -200
+    linearVelocity.x: -5
     linearVelocity.y: 0
     fixedRotation: true
+    bodyType: Body.Kinematic
 
     fixtures: Box {
         width: 90
         height: 77
         density: 0.8
         friction: 0.2
-        restitution: 0.8
+        restitution: 0
         sensor: true
     }
 

@@ -98,10 +98,11 @@ Scene {
         pixelsPerMeter: units.gu(5)
 
         property var debrisImages: [ "dust1", "dust2", "dust3", "leaf1", "leaf2", "leaf3" ]
-        property var obstacles: [ "Fuel", "Guitar", "Clock", "Door", "Bird", "BoxObj", "Sign", "Television", "Trash", "Umbrella", "WalkSign", "Wheel" ]
+        property var obstacles: [ "Guitar", "Clock", "Door", "BoxObj", "Sign", "Television", "Trash", "Umbrella", "WalkSign", "Wheel" ]
         property var createdObstacles: []
         property int levelLength: 50
-        property var fan: null
+        property int obstacleInterval: 10
+        property int fuelInterval: 20
 
         HowToFlag {
             id: howTo
@@ -172,44 +173,103 @@ Scene {
         }
 
         Entity {
-            updateInterval: 500
+            updateInterval: 20000
+            behavior: ScriptBehavior {
+                script: {
+                    var fuelObj = birdComp.createObject(world,
+                                                        {"x": player.x + world.width,
+                                                        "y": world.y + Math.max((world.height * Math.random()), world.height/2)});
+                    world.createdObstacles.push(birdObj);
+                }
+            }
+        }
+
+        Entity {
+            updateInterval: 12000
+            behavior: ScriptBehavior {
+                script: {
+                    var fuelObj = fuelComp.createObject(world,
+                                                        {"x": player.x + world.width,
+                                                        "y": world.height - (world.height/4 * Math.random())});
+                    world.createdObstacles.push(fuelObj);
+                }
+            }
+        }
+
+        Entity {
+            updateInterval: 1000
             behavior: ScriptBehavior {
                 script: {
                     screen.score++;
                     if (screen.score > highscore.value)
                         highscore.value = screen.score;
-                    var r = screen.score % 5;
-                    if (r === 0) {
-                        var i = Math.floor(Math.random() * world.obstacles.length);
-                        var comp = Qt.createComponent(world.obstacles[i]+".qml");
-                        if (comp.status == Component.Ready) {
-                            var object = comp.createObject(world,
-                                                           {"x": player.x + world.width,
-                                                            "y": (world.height/2 * Math.random()) + world.height/2,
-                                                            "linearVelocity.x": -10});
-                            if (!object.fixedRotation)
-                                object.rotation = 10 + Math.random() * 340;
-                            world.createdObstacles.push(object);
-                        }
-
-                        if (screen.score < world.levelLength)
-                            screen.levelCount = 1;
-                        if (screen.score > ((screen.levelCount + 1) * world.levelLength)) {
-                            screen.levelCount++;
-                            var comp = Qt.createComponent("Fan.qml");
-                            if (comp.status == Component.Ready)
-                                world.fan = comp.createObject(world, {"x": player.x + world.width});
-                        }
-                    }
                 }
             }
         }
 
-        Audio {
-            id: fanSound
-            muted: screen.muted
-            source: "sounds/fan.wav"
-            loops: Audio.Infinite
+        Entity {
+            updateInterval: 5000
+            behavior: ScriptBehavior {
+                script: {
+                    var i = Math.floor(Math.random() * world.obstacles.length);
+                    var comp = Qt.createComponent(world.obstacles[i]+".qml");
+                    if (comp.status == Component.Ready) {
+                        var object = comp.createObject(world,
+                                                       {"x": player.x + world.width,
+                                                        "y": world.height - (world.height/4 * Math.random()),
+                                                        "linearVelocity.x": -10});
+                        if (!object.fixedRotation)
+                            object.rotation = 10 + Math.random() * 340;
+                        world.createdObstacles.push(object);
+                    }
+                }
+            }
+        }
+        Entity {
+            updateInterval: 50000
+            behavior: ScriptBehavior {
+                script: {
+                    var object = fanComp.createObject(world,
+                                                      {"x": player.x + (world.width * 2)});
+                    object.running = true;
+                    screen.levelCount++;
+                }
+            }
+        }
+
+        Component {
+            id: fuelComp
+            Fuel {}
+        }
+
+        Component {
+            id: birdComp
+            Bird {}
+        }
+
+        Component {
+            id: fanComp
+            Fan {
+                onRunningChanged: {
+                    if (running)
+                        fanSound.play();
+                    else
+                        fanSound.stop();
+                }
+                onXChanged: {
+                    if (x < -world.width) {
+                        running = false;
+                        destroy();
+                    }
+                }
+                SoundEffect {
+                    id: fanSound
+                    muted: screen.muted
+                    volume: Math.max(0.0, Math.min(0.4, Math.abs(1.0 - (Math.abs(x - player.x) / 150) / 10)));
+                    source: "sounds/fan.wav"
+                    loops: SoundEffect.Infinite
+                }
+            }
         }
 
         DebugDraw {
