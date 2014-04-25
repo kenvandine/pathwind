@@ -54,6 +54,7 @@ Game {
             left: parent.left
             right: parent.right
         }
+        z: 1
         visible: game.currentScene === playingScene
         fuel: playingScene.fuel
         fuelPlus: playingScene.fuelPlus
