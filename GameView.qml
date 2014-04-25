@@ -46,5 +46,19 @@ Game {
         id: aboutScene
         onBackClicked: game.currentScene = menuScene
     }
+
+    Screen {
+        id: screen
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
+        visible: game.currentScene === playingScene
+        fuel: playingScene.fuel
+        fuelPlus: playingScene.fuelPlus
+        muted: playingScene.muted
+        onTogglePause: playingScene.running = !playingScene.running
+    }
 }
 

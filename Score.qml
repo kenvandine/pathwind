@@ -26,7 +26,7 @@ Item {
     Text {
         color: "white"
         font.family: dPuntillasFont.name
-        font.pointSize: 20
+        font.pointSize: 28
         text: value
     }
 }

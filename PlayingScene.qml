@@ -26,6 +26,8 @@ Scene {
     width: parent.width
     property bool muted
     property int highscore: 0
+    property alias fuel: player.fuel
+    property alias fuelPlus: player.fuelPlus
 
     onRunningChanged: {
         if (!running) 
@@ -286,19 +288,5 @@ Scene {
               player.fly();
         }
         onReleased: player.stop();
-    }
-
-    Screen {
-        id: screen
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-        height: parent.height / 2
-        fuel: player.fuel
-        fuelPlus: player.fuelPlus
-        muted: scene.muted
-        onTogglePause: scene.running = !scene.running
     }
 }

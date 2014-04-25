@@ -41,9 +41,8 @@ Item {
         anchors {
             left: parent.left
             right: parent.right
-            bottom: parent.bottom
+            top: parent.top
         }
-        x: 100
 
         LevelIndicator {
             id: level
@@ -72,16 +71,16 @@ Item {
             value: fuel
             count: fuelPlus
             anchors {
-                bottom: parent.bottom
+                top: parent.top
                 right: pauseButton.left
-                bottomMargin: 10
+                topMargin: 20
                 rightMargin: 10
             }
         }
 
         Image {
             id: pauseButton
-            anchors.bottom: parent.bottom
+            anchors.top: parent.top
             anchors.right: parent.right
             source: "images/pause.png"
             height: topBar.height * 3
