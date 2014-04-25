@@ -21,7 +21,7 @@ import QtQuick 2.2
 import Bacon2D 1.0
 
 Body {
-    height: 30
+    height: 0
     bodyType: Body.Static
 
     fixtures: Box {

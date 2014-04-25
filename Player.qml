@@ -117,23 +117,23 @@ Entity {
 
     SoundEffect {
         id: jetSound
-        muted: false
-        volume: 0.7
+        muted: screen.muted
+        volume: 0.5
         loops: SoundEffect.Infinite
         source: "sounds/jet.wav"
     }
 
     SoundEffect {
         id: hitSound
-        muted: false
-        volume: 0.7
+        muted: screen.muted
+        volume: 0.5
         source: "sounds/hit.wav"
     }
 
     SoundEffect {
         id: gasSound
-        muted: false
-        volume: 0.8
+        muted: screen.muted
+        volume: 0.5
         source: "sounds/gas.wav"
     }
 
@@ -177,6 +177,7 @@ Entity {
         }
 
         if (player.x + player.width < -parent.x) {
+            player.linearVelocity.x = 0;
             player.gameOver();
         }
 
@@ -186,9 +187,11 @@ Entity {
         // ignore debris collision
         if (other.parent.objectName === "debris")
             return;
-        // ignore ceiling collision
-        if (other.categories == Box.Category6)
+        // ceiling collision
+        if (other.categories == Box.Category6) {
+            player.linearVelocity.y = 2;
             return;
+        }
 
         // ground collision
         if (other.categories == Box.Category2) {
