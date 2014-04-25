@@ -21,7 +21,7 @@ import QtQuick 2.2
 Item {
     id: root
 
-    opacity: 0.5
+    opacity: 0.8
     property int frameCount: 0
     property bool running: true
     property int duration: 1000
@@ -30,7 +30,7 @@ Item {
     FontLoader { id: dPuntillasFont; source: "fonts/d-puntillas-D-to-tiptoe.ttf" }
 
     Text {
-        width: parent.width
+        width: parent.width * 0.8
         color: "black"
         font.family: dPuntillasFont.name
         font.pointSize: 20

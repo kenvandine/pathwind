@@ -22,11 +22,11 @@ import QtQuick 2.2
 InfoFlag {
     Text {
         FontLoader { id: dPuntillasFont; source: "fonts/d-puntillas-D-to-tiptoe.ttf" }
-        width: parent.width
+        width: parent.width * 0.8
         opacity: 0.8
         color: "black"
         font.family: dPuntillasFont.name
-        font.pointSize: 20
+        font.pointSize: 36
         text: "Tap and hold to fly higher"
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
     }

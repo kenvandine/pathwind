@@ -25,10 +25,10 @@ InfoFlag {
     LoopText {
         width: parent.width
         frameCount: 4
-        duration: 10000
+        duration: 20000
         running: root.animating
         contents: [
-            "Created with Bacon2D and the Ubuntu SDK",
+            "Created by Ken VanDine, with Bacon2D and the Ubuntu SDK",
             "Based on work by Adriano Rezende",
             "Artwork by Glaubert Oliveira",
             "Sounds by Mauricio Gomes"

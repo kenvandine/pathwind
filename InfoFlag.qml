@@ -59,8 +59,8 @@ Item {
         }
 
         LoopImage {
-            x: 402
-            y: 30
+            x: 572
+            y: 75
             frameCount: 6
             duration: 150
             running: root.animating
