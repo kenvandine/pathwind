@@ -31,12 +31,17 @@ Entity {
     property string playerState: "falling"
     signal gameOver
 
+    onAliveChanged: {
+        print("onAliveChanged: " + alive);
+    }
+
     width: 120
     height: 132
-    bullet: true
+    bullet: false
     fixedRotation: true
     sleepingAllowed: false
     bodyType: Body.Dynamic
+    gravityScale: 2
     behavior: ScriptBehavior {
         script: advance()
     }
@@ -50,6 +55,7 @@ Entity {
             height: 55
             density: 1
             friction: 1
+            restitution: 0
             categories: Box.Category4
             onBeginContact: handleCollision(other);
         },
@@ -60,6 +66,7 @@ Entity {
             height: 65
             density: 1
             friction: 1
+            restitution: 0
             categories: Box.Category4
             onBeginContact: handleCollision(other);
         }
@@ -108,22 +115,22 @@ Entity {
         ]
     }
 
-    Audio {
+    SoundEffect {
         id: jetSound
         muted: false
         volume: 0.7
-        loops: Audio.Infinite
+        loops: SoundEffect.Infinite
         source: "sounds/jet.wav"
     }
 
-    Audio {
+    SoundEffect {
         id: hitSound
         muted: false
         volume: 0.7
         source: "sounds/hit.wav"
     }
 
-    Audio {
+    SoundEffect {
         id: gasSound
         muted: false
         volume: 0.8
@@ -139,22 +146,19 @@ Entity {
         player.fuelPlus = 0;
         player.alive = true;
         player.playerState = "falling";
-        player.linearVelocity.x = 0.1;
+        player.linearVelocity.x = 0;
     }
 
     function advance() {
-        if (player.alive && (player.x < (parent.width * 0.4))) 
-            player.linearVelocity.x = 0.4;
-        else if (player.alive && (player.x > (parent.width/2))) 
+        if (player.alive)
             player.linearVelocity.x = 0;
-        else if (player.alive && (player.x < (parent.width/4))) 
-            player.linearVelocity.x =  0.8;
+        else
+            player.linearVelocity.x = -5;
 
         if (player.playerState == "falling")
             player.applyLinearImpulse(Qt.point(0, 1), getWorldCenter());
 
         if (player.playerState == "flying") {
-            player.linearVelocity.x = 0.5;
             var impulse = Qt.point(0, -1);
             player.fuel = Math.max(0, player.fuel - 0.044);
 
@@ -169,7 +173,7 @@ Entity {
                 player.applyLinearImpulse(impulse, getWorldCenter());
             }
         } else {
-            player.fuel = Math.min(1.0, player.fuel + 0.010);
+            player.fuel = Math.min(1.0, player.fuel + 0.05);
         }
 
         if (player.x + player.width < -parent.x) {
@@ -179,7 +183,10 @@ Entity {
     }
 
     function handleCollision(other) {
-        // ceil collision
+        // ignore debris collision
+        if (other.parent.objectName === "debris")
+            return;
+        // ignore ceiling collision
         if (other.categories == Box.Category6)
             return;
 
@@ -190,7 +197,7 @@ Entity {
         }
 
         // bonus collision
-        if (other.categories == Box.Category3) {
+        if (other.parent.objectName === "fuel" ) {
             if (player.fuelPlus == 0)
                 player.fuelPlus++;
             gasSound.play();
@@ -198,9 +205,10 @@ Entity {
         }
 
         // enemy collision
-        if (player.alive) {
+        if (other.parent.objectName === "obstacle") {
             hitSound.play();
             player.alive = false;
+            return;
         }
     }
 

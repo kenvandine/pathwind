@@ -93,20 +93,20 @@ Item {
         }
     }
 
-    Audio {
+    SoundEffect {
         id: windSound
         muted: screen.muted
-        volume: 0.6
+        volume: 0.4
         source: "sounds/wind.wav"
-        loops: Audio.Infinite
+        loops: SoundEffect.Infinite
     }
 
-    Audio {
+    SoundEffect {
         id: tuneSound
         muted: screen.muted
-        volume: 0.5
+        volume: 0.4
         source: "sounds/tune.wav"
-        loops: Audio.Infinite
+        loops: SoundEffect.Infinite
     }
 
     Component.onCompleted: {
