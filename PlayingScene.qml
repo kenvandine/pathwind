@@ -105,7 +105,7 @@ Scene {
         HowToFlag {
             id: howTo
             y: (parent.height/2) + height/2
-            x: parent.width * 0.4
+            x: parent.width * 0.2
             visible: x > (parent.x - width)
             showSmallBird: false
             Behavior on x {
