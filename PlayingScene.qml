@@ -186,32 +186,29 @@ Scene {
                     screen.score++;
                     if (screen.score > highscore.value)
                         highscore.value = screen.score;
-                    var r = screen.score % 5;
-                    if (r === 0) {
-                        var i = Math.floor(Math.random() * world.obstacles.length);
-                        var comp = Qt.createComponent(world.obstacles[i]+".qml");
-                        if (comp.status == Component.Ready) {
-                            var object = comp.createObject(world,
-                                                           {"x": player.x + world.width,
-                                                            "y": (world.height/2 * Math.random()) + world.height/2,
-                                                            "linearVelocity.x": -10});
-                            if (!object.fixedRotation)
-                                object.rotation = 10 + Math.random() * 340;
-                            world.createdObstacles.push(object);
-                        }
+                }
+            }
+        }
 
-                        if (screen.score < world.levelLength)
-                            screen.levelCount = 1;
-                        if (screen.score > ((screen.levelCount + 1) * world.levelLength)) {
-                            screen.levelCount++;
-                            var comp = Qt.createComponent("Fan.qml");
-                            if (comp.status == Component.Ready)
-                                world.fan = comp.createObject(world, {"x": player.x + world.width});
-                        }
+        Entity {
+            updateInterval: 5000
+            behavior: ScriptBehavior {
+                script: {
+                    var i = Math.floor(Math.random() * world.obstacles.length);
+                    var comp = Qt.createComponent(world.obstacles[i]+".qml");
+                    if (comp.status == Component.Ready) {
+                        var object = comp.createObject(world,
+                                                       {"x": player.x + world.width,
+                                                        "y": world.height - (world.height/4 * Math.random()),
+                                                        "linearVelocity.x": -10});
+                        if (!object.fixedRotation)
+                            object.rotation = 10 + Math.random() * 340;
+                        world.createdObstacles.push(object);
                     }
                 }
             }
         }
+
         Entity {
             updateInterval: 60000
             behavior: ScriptBehavior {
@@ -232,6 +229,31 @@ Scene {
         Component {
             id: birdComp
             Bird {}
+        }
+
+        Component {
+            id: fanComp
+            Fan {
+                onRunningChanged: {
+                    if (running)
+                        fanSound.play();
+                    else
+                        fanSound.stop();
+                }
+                onXChanged: {
+                    if (x < -world.width) {
+                        running = false;
+                        destroy();
+                    }
+                }
+                SoundEffect {
+                    id: fanSound
+                    muted: screen.muted
+                    volume: Math.max(0.0, Math.min(0.4, Math.abs(1.0 - (Math.abs(x - player.x) / 150) / 10)));
+                    source: "sounds/fan.wav"
+                    loops: SoundEffect.Infinite
+                }
+            }
         }
 
         Component {

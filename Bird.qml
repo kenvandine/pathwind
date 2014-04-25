@@ -35,6 +35,7 @@ Entity {
         density: 0.8
         friction: 0.2
         restitution: 0
+        sensor: true
     }
 
     Sprite {
