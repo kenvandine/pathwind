@@ -208,7 +208,8 @@ Entity {
         }
 
         // enemy collision
-        if (other.parent.objectName === "obstacle") {
+        if ((other.parent.objectName === "obstacle") ||
+            (other.parent.objectName === "bird")) {
             hitSound.play();
             player.alive = false;
             return;

@@ -145,7 +145,7 @@ Scene {
             anchors {
                 left: parent.left
                 right: parent.right
-                bottom: scene.top
+                bottom: parent.top
             }
         }
 
