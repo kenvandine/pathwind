@@ -216,6 +216,7 @@ Scene {
                     var object = fanComp.createObject(world,
                                                       {"x": player.x + (world.width * 2)});
                     object.running = true;
+                    world.createdObstacles.push(object);
                     screen.levelCount++;
                 }
             }
