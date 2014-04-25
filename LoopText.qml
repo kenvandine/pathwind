@@ -44,7 +44,7 @@ Item {
 
         NumberAnimation on index {
             from: 0
-            to: frameCount
+            to: frameCount-1
             running: root.running
             duration: root.duration
             loops: Animation.Infinite
