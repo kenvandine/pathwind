@@ -147,8 +147,8 @@ Scene {
             anchors {
                 left: parent.left
                 right: parent.right
+                bottom: scene.top
             }
-            y: -scene.height - height
         }
 
         HighScore {
