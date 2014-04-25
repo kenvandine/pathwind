@@ -38,6 +38,7 @@ Scene {
         player.reset();
         scene.cleanObstacles();
         screen.score = 0;
+        screen.levelCount = 1;
     }
 
     function cleanObstacles() {
@@ -119,8 +120,8 @@ Scene {
             id: player
             z: 1
             onGameOver: {
-                scene.running = false;
                 scene.reset();
+                scene.running = false;
            }
         }
 
@@ -176,10 +177,10 @@ Scene {
             updateInterval: 20000
             behavior: ScriptBehavior {
                 script: {
-                    var fuelObj = birdComp.createObject(world,
+                    var object = birdComp.createObject(world,
                                                         {"x": player.x + world.width,
                                                         "y": world.y + Math.max((world.height * Math.random()), world.height/2)});
-                    world.createdObstacles.push(birdObj);
+                    world.createdObstacles.push(object);
                 }
             }
         }
@@ -188,10 +189,10 @@ Scene {
             updateInterval: 12000
             behavior: ScriptBehavior {
                 script: {
-                    var fuelObj = fuelComp.createObject(world,
+                    var object = fuelComp.createObject(world,
                                                         {"x": player.x + world.width,
                                                         "y": world.height - (world.height/4 * Math.random())});
-                    world.createdObstacles.push(fuelObj);
+                    world.createdObstacles.push(object);
                 }
             }
         }
@@ -226,12 +227,13 @@ Scene {
             }
         }
         Entity {
-            updateInterval: 50000
+            updateInterval: 60000
             behavior: ScriptBehavior {
                 script: {
                     var object = fanComp.createObject(world,
                                                       {"x": player.x + (world.width * 2)});
                     object.running = true;
+                    world.createdObstacles.push(object);
                     screen.levelCount++;
                 }
             }
