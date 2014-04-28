@@ -36,21 +36,8 @@ Scene {
 
     function reset() {
         player.reset();
-        scene.cleanObstacles();
         screen.score = 0;
         screen.levelCount = 1;
-    }
-
-    function cleanObstacles() {
-        var obj;
-        for (var i = 0; i < world.createdObstacles.length; i++) {
-            obj = world.createdObstacles[i];
-            if (obj != null) {
-                obj.visible = false;
-                obj = null;
-            }
-        }
-        world.createdObstacles = [];
     }
 
     viewport: Viewport {
@@ -94,13 +81,10 @@ Scene {
         id: world
         anchors.fill: parent
         gravity: Qt.point(0, 0)
-        running: scene.running
-        visible: running
         pixelsPerMeter: 50
 
         property var debrisImages: [ "dust1", "dust2", "dust3", "leaf1", "leaf2", "leaf3" ]
         property var obstacles: [ "Guitar", "Clock", "Door", "BoxObj", "Sign", "Television", "Trash", "Umbrella", "WalkSign", "Wheel" ]
-        property var createdObstacles: []
         property int levelLength: 50
         property int obstacleInterval: 10
         property int fuelInterval: 20
@@ -121,7 +105,7 @@ Scene {
             z: 1
             onGameOver: {
                 scene.reset();
-                scene.running = false;
+                game.currentScene = menuScene;
            }
         }
 
@@ -180,7 +164,6 @@ Scene {
                     var object = birdComp.createObject(world,
                                                         {"x": player.x + world.width,
                                                         "y": world.y + Math.max((world.height * Math.random()), world.height/2)});
-                    world.createdObstacles.push(object);
                 }
             }
         }
@@ -192,7 +175,6 @@ Scene {
                     var object = fuelComp.createObject(world,
                                                         {"x": player.x + world.width,
                                                         "y": world.height - (world.height/4 * Math.random())});
-                    world.createdObstacles.push(object);
                 }
             }
         }
@@ -221,7 +203,6 @@ Scene {
                                                         "linearVelocity.x": -10});
                         if (!object.fixedRotation)
                             object.rotation = 10 + Math.random() * 340;
-                        world.createdObstacles.push(object);
                     }
                 }
             }
@@ -233,7 +214,6 @@ Scene {
                     var object = fanComp.createObject(world,
                                                       {"x": player.x + (world.width * 2)});
                     object.running = true;
-                    world.createdObstacles.push(object);
                     screen.levelCount++;
                 }
             }
@@ -274,11 +254,13 @@ Scene {
             }
         }
 
+        /*
         DebugDraw {
             anchors.fill: parent
             world: world
             visible: false
         }
+        */
     }
 
     MouseArea {
