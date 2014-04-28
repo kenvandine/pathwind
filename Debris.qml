@@ -23,7 +23,7 @@ Entity {
     objectName: "debris"
     bodyType: Body.Dynamic
     bullet: false
-    sleepingAllowed: false
+    sleepingAllowed: true
     fixedRotation: false
 
     width: Math.max(image.width, 1)

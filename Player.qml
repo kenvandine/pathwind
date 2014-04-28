@@ -39,7 +39,7 @@ Entity {
     height: 132
     bullet: false
     fixedRotation: true
-    sleepingAllowed: false
+    sleepingAllowed: true
     bodyType: Body.Dynamic
     gravityScale: 2
     behavior: ScriptBehavior {

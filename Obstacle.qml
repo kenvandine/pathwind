@@ -24,7 +24,7 @@ Entity {
     objectName: "obstacle"
     bodyType: Body.Dynamic
     bullet: false
-    sleepingAllowed: false
+    sleepingAllowed: true
     fixedRotation: false
     angularDamping: 0.5
     linearDamping: 0.3
