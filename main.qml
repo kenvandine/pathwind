@@ -26,15 +26,34 @@ MainView {
     applicationName: "com.ubuntu.developer.ken-vandine.pathwind"
 
     Page {
+        id: root
         anchors.fill: parent
+        opacity: splash.opacity < 1 ? 1.0 : 0.0
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 1500
+            }
+        }
+
         OrientationHelper {
-                orientationAngle: parent.width > parent.height ? 0 : 90
+            id: orientHelper
+            transitionEnabled: false
+            orientationAngle: parent.width > parent.height ? 0 : 90
 
             GameView {
                 id: gameView
                 anchors.fill: parent
-                width: parent.widht
-                height: parent.height
+            }
+        }
+    }
+
+    Splash {
+        id: splash
+        anchors.fill: parent
+        rotation: parent.width > parent.height ? 0 : 90
+        Behavior on opacity {
+            NumberAnimation {
+                duration: 1500
             }
         }
     }
