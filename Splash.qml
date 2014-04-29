@@ -27,7 +27,6 @@ Item {
                 duration: 200
                 running: splash.running
                 loops: Animation.Infinite
-                onRunningChanged: print ("splash: " + running);
             }]
     }
 

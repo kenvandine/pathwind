@@ -40,7 +40,7 @@ Scene {
 
             Score {
                 x: 224
-                y: 62
+                y: 52
                 rotation: -12
                 value: highscore.value
                 transformOrigin: Item.TopLeft

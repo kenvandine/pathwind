@@ -31,10 +31,6 @@ Entity {
     property string playerState: "falling"
     signal gameOver
 
-    onAliveChanged: {
-        print("onAliveChanged: " + alive);
-    }
-
     width: 120
     height: 132
     bullet: false
