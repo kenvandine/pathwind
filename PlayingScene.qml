@@ -22,10 +22,9 @@ import Bacon2D 1.0
 
 Scene {
     id: scene
-    height: parent.height * 2
+    height: parent.height + parent.height/2
     width: parent.width
     property bool muted
-    property int highscore: 0
     property alias fuel: player.fuel
     property alias fuelPlus: player.fuelPlus
 
@@ -34,10 +33,26 @@ Scene {
             game.currentScene = menuScene;
     }
 
+    function cleanObstacles() {
+        for (var i = 0; i < world.children.length; i++) {
+            var obj = world.children[i];
+            if (obj != null) {
+                if (((obj.bodyType === Body.Dynamic || obj.bodyType === Body.Kinematic)) && (obj.objectName !== "player")) {
+                    obj.destroy();
+                }
+            }
+        }
+    }
+
     function reset() {
+        scene.cleanObstacles();
         player.reset();
         screen.score = 0;
+        screen.levelCount = 0;
         screen.levelCount = 1;
+        obstacleInterval.updateInterval = 5000;
+        fuelInterval.updateInterval = 12000;
+        birdInterval.updateInterval = 20000;
     }
 
     viewport: Viewport {
@@ -80,18 +95,18 @@ Scene {
     World {
         id: world
         anchors.fill: parent
+        running: scene.running
         gravity: Qt.point(0, 0)
         pixelsPerMeter: 50
 
         property var debrisImages: [ "dust1", "dust2", "dust3", "leaf1", "leaf2", "leaf3" ]
         property var obstacles: [ "Guitar", "Clock", "Door", "BoxObj", "Sign", "Television", "Trash", "Umbrella", "WalkSign", "Wheel" ]
         property int levelLength: 50
-        property int obstacleInterval: 10
         property int fuelInterval: 20
 
         HowToFlag {
             id: howTo
-            y: (parent.height/2) + height/2
+            y: (parent.height/2) - height/3
             x: parent.width * 0.2
             visible: x > (parent.x - width)
             showSmallBird: false
@@ -104,8 +119,8 @@ Scene {
             id: player
             z: 1
             onGameOver: {
-                scene.reset();
                 game.currentScene = menuScene;
+                scene.reset();
            }
         }
 
@@ -150,7 +165,7 @@ Scene {
                     if (comp.status == Component.Ready)
                         var object = comp.createObject(world, 
                                                        {"x": player.x + world.width, 
-                                                        "y": (world.height/2 * Math.random()) + world.height/2,
+                                                        "y": (world.height - 20) - Math.max((game.height * Math.random()), (game.height - height)),
                                                         "path": "images/particles/"+world.debrisImages[i]+".png",
                                                         "linearVelocity.x": -(10 + (10 * Math.random()))});
                 }
@@ -158,23 +173,26 @@ Scene {
         }
 
         Entity {
+            id: birdInterval
             updateInterval: 20000
             behavior: ScriptBehavior {
                 script: {
                     var object = birdComp.createObject(world,
-                                                        {"x": player.x + world.width,
-                                                        "y": world.y + Math.max((world.height * Math.random()), world.height/2)});
+                                                       {"x": player.x + world.width,
+                                                       "y": (world.y + world.height * 0.3) + Math.max(((game.height * 0.7) * Math.random()), (game.height/2 - height))});
+                    print ("Bird created at x: " + object.x + " y: " + object.y);
                 }
             }
         }
 
         Entity {
+            id: fuelInterval
             updateInterval: 12000
             behavior: ScriptBehavior {
                 script: {
                     var object = fuelComp.createObject(world,
                                                         {"x": player.x + world.width,
-                                                        "y": world.height - (world.height/4 * Math.random())});
+                                                         "y": (world.height - 20) - Math.max((game.height * Math.random()), (game.height - height))});
                 }
             }
         }
@@ -183,7 +201,7 @@ Scene {
             updateInterval: 1000
             behavior: ScriptBehavior {
                 script: {
-                    screen.score++;
+                    screen.score = screen.score + screen.levelCount;
                     if (screen.score > highscore.value)
                         highscore.value = screen.score;
                 }
@@ -191,6 +209,7 @@ Scene {
         }
 
         Entity {
+            id: obstacleInterval
             updateInterval: 5000
             behavior: ScriptBehavior {
                 script: {
@@ -199,20 +218,23 @@ Scene {
                     if (comp.status == Component.Ready) {
                         var object = comp.createObject(world,
                                                        {"x": player.x + world.width,
-                                                        "y": world.height - (world.height/4 * Math.random()),
-                                                        "linearVelocity.x": -10});
+                                                        "y": world.height - Math.max((game.height * Math.random()), (game.height - height)),
+                                                        "linearVelocity.x": -(screen.levelCount * 2)});
                         if (!object.fixedRotation)
                             object.rotation = 10 + Math.random() * 340;
                     }
                 }
             }
         }
+
         Entity {
-            updateInterval: 60000
+            id: fanInterval
+            updateInterval: (screen.levelCount * 20000)
+            onUpdateIntervalChanged: print("fanInterval Changed " + updateInterval)
             behavior: ScriptBehavior {
                 script: {
                     var object = fanComp.createObject(world,
-                                                      {"x": player.x + (world.width * 2)});
+                                                      {"x": player.x + (world.width * 1.5)});
                     object.running = true;
                     screen.levelCount++;
                 }
@@ -253,14 +275,6 @@ Scene {
                 }
             }
         }
-
-        /*
-        DebugDraw {
-            anchors.fill: parent
-            world: world
-            visible: false
-        }
-        */
     }
 
     MouseArea {

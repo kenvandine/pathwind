@@ -62,8 +62,9 @@ Item {
             anchors {
                 verticalCenter: parent.verticalCenter
                 right: fuelIndicator.left
-                rightMargin: 80
+                rightMargin: 10
             }
+            width: childrenRect.width
         }
 
         FuelIndicator {
@@ -95,17 +96,39 @@ Item {
     SoundEffect {
         id: windSound
         muted: screen.muted
-        volume: 0.4
+        volume: 0.0
         source: "sounds/wind.wav"
         loops: SoundEffect.Infinite
+        Behavior on volume {
+            NumberAnimation {
+                duration: 1000
+            }
+        }
+        onPlayingChanged: {
+            if (playing)
+                volume = 0.4;
+            else
+                volume = 0.0;
+        }
     }
 
     SoundEffect {
         id: tuneSound
         muted: screen.muted
-        volume: 0.4
+        volume: 0.0
         source: "sounds/tune.wav"
         loops: SoundEffect.Infinite
+        Behavior on volume {
+            NumberAnimation {
+                duration: 1000
+            }
+        }
+        onPlayingChanged: {
+            if (playing)
+                volume = 0.4;
+            else
+                volume = 0.0;
+        }
     }
 
     Component.onCompleted: {
