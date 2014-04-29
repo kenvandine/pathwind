@@ -180,7 +180,6 @@ Scene {
                     var object = birdComp.createObject(world,
                                                        {"x": player.x + world.width,
                                                        "y": (world.y + world.height * 0.3) + Math.max(((game.height * 0.7) * Math.random()), (game.height/2 - height))});
-                    print ("Bird created at x: " + object.x + " y: " + object.y);
                 }
             }
         }
@@ -230,7 +229,6 @@ Scene {
         Entity {
             id: fanInterval
             updateInterval: (screen.levelCount * 20000)
-            onUpdateIntervalChanged: print("fanInterval Changed " + updateInterval)
             behavior: ScriptBehavior {
                 script: {
                     var object = fanComp.createObject(world,

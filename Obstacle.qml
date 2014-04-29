@@ -51,5 +51,4 @@ Entity {
             }
         }
     }
-    Component.onDestruction: print("destroyed obstacle " + objectName)
 }
