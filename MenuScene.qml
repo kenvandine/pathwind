@@ -99,8 +99,8 @@ Scene {
         Image {
             x: aboutSign.x + 135
             y: aboutSign.y + 70
-            source: menuScene.muted ? "images/menu/sound_on.png"
-                : "images/menu/sound_off.png"
+            source: menuScene.muted ? "images/menu/sound_off.png"
+                : "images/menu/sound_on.png"
 
             MouseArea {
                 anchors.fill: parent
