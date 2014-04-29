@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Pathwind
-Exec=/usr/bin/qmlscene -I . main.qml
+Exec=qmlscene -I . main.qml
 Icon=pathwind.png
 Terminal=false
 Type=Application

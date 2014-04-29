@@ -141,7 +141,7 @@ Entity {
 
     function reset() {
         player.x = parent.width * 0.2;
-        player.y = height;
+        player.y = parent.height * 0.5;
         player.fuel = 1.0;
         player.fuelPlus = 0;
         player.alive = true;
@@ -153,7 +153,7 @@ Entity {
         if (player.alive)
             player.linearVelocity.x = 0;
         else
-            player.linearVelocity.x = -5;
+            player.linearVelocity.x = -20;
 
         if (player.playerState == "falling")
             player.applyLinearImpulse(Qt.point(0, 1), getWorldCenter());
@@ -212,6 +212,9 @@ Entity {
             (other.parent.objectName === "bird")) {
             hitSound.play();
             player.alive = false;
+            //other.parent.destroy();
+            //player.linearVelocity.x = 0;
+            //player.linearVelocity.y = 0;
             return;
         }
     }
