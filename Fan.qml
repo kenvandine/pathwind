@@ -33,8 +33,8 @@ Entity {
     height: 447
     fixedRotation: true
     bodyType: Body.Dynamic
-    property bool running: false
     linearVelocity.x: -(units.gu(1)/2)
+    property bool running: false
 
     fixtures: Box {
         anchors.fill: parent
