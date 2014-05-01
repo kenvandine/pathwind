@@ -1,0 +1,3 @@
+[submodule "plugins/Bacon2D"]
+	path = plugins/Bacon2D
+	url = https://github.com/Bacon2D/Bacon2D.git
