@@ -19,7 +19,6 @@
 import QtQuick 2.2
 import QtMultimedia 5.0
 import Bacon2D 1.0
-import Ubuntu.Components 0.1
 
 Scene {
     id: scene
@@ -98,7 +97,7 @@ Scene {
         anchors.fill: parent
         running: scene.running
         gravity: Qt.point(0, 0)
-        pixelsPerMeter: units.gu(5)
+        pixelsPerMeter: 75
 
         property var debrisImages: [ "dust1", "dust2", "dust3", "leaf1", "leaf2", "leaf3" ]
         property var obstacles: [ "Guitar", "Clock", "Door", "BoxObj", "Sign", "Television", "Trash", "Umbrella", "WalkSign", "Wheel" ]

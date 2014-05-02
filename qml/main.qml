@@ -18,43 +18,9 @@
 
 import QtQuick 2.2
 import Bacon2D 1.0
-import Ubuntu.Components 0.1
 
-MainView {
+GameView {
+    id: gameView
     width: 854
     height: 480
-    applicationName: "com.ubuntu.developer.ken-vandine.pathwind"
-
-    Page {
-        id: root
-        anchors.fill: parent
-        opacity: splash.opacity < 1 ? 1.0 : 0.0
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 1500
-            }
-        }
-
-        OrientationHelper {
-            id: orientHelper
-            transitionEnabled: false
-            orientationAngle: parent.width > parent.height ? 0 : 90
-
-            GameView {
-                id: gameView
-                anchors.fill: parent
-            }
-        }
-    }
-
-    Splash {
-        id: splash
-        anchors.fill: parent
-        rotation: parent.width > parent.height ? 0 : 90
-        Behavior on opacity {
-            NumberAnimation {
-                duration: 1500
-            }
-        }
-    }
 }
