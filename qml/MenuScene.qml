@@ -29,7 +29,6 @@ Scene {
     signal aboutClicked()
 
     property bool replayEnabled: false
-    property bool muted: true
 
     Item {
         anchors.centerIn: parent
@@ -42,7 +41,7 @@ Scene {
                 x: 224
                 y: 52
                 rotation: -12
-                value: highscore.value
+                value: settings.highScore
                 transformOrigin: Item.TopLeft
             }
 
@@ -99,12 +98,12 @@ Scene {
         Image {
             x: aboutSign.x + 135
             y: aboutSign.y + 70
-            source: menuScene.muted ? "images/menu/sound_off.png"
+            source: settings.noSound ? "images/menu/sound_off.png"
                 : "images/menu/sound_on.png"
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: menuScene.muted = !menuScene.muted
+                onClicked: settings.noSound = !settings.noSound
             }
         }
     }

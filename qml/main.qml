@@ -21,6 +21,7 @@ import Bacon2D 1.0
 import Ubuntu.Components 0.1
 
 MainView {
+    id: mainView
     width: 854
     height: 480
     applicationName: "com.ubuntu.developer.ken-vandine.pathwind"
