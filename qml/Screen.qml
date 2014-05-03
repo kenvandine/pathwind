@@ -28,8 +28,6 @@ Item {
     property int offset: 0
     property int metersByPixel: 120
     property real verticalProgress: 0.0
-    property int highScore: 0
-    property bool muted
     property real fuel: 0.0
     property int fuelPlus: 0
 
@@ -95,7 +93,7 @@ Item {
 
     SoundEffect {
         id: windSound
-        muted: screen.muted
+        muted: settings.noSound
         volume: 0.0
         source: "sounds/wind.wav"
         loops: SoundEffect.Infinite
@@ -114,7 +112,7 @@ Item {
 
     SoundEffect {
         id: tuneSound
-        muted: screen.muted
+        muted: settings.noSound
         volume: 0.0
         source: "sounds/tune.wav"
         loops: SoundEffect.Infinite

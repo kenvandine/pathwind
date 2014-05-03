@@ -24,9 +24,8 @@ Scene {
     id: scene
     height: parent.height + parent.height/2
     width: parent.width
-    property bool muted
     property alias fuel: player.fuel
-    property alias fuelPlus: player.fuelPlus
+    property alias fuelPlus: player.fuelPlus 
 
     onRunningChanged: {
         if (!running) 
@@ -57,7 +56,6 @@ Scene {
 
     viewport: Viewport {
         id: gameViewport
-
         yOffset: player.y - 100
         animationDuration: 0
     }
@@ -201,8 +199,8 @@ Scene {
             behavior: ScriptBehavior {
                 script: {
                     screen.score = screen.score + screen.levelCount;
-                    if (screen.score > highscore.value)
-                        highscore.value = screen.score;
+                    if (screen.score > settings.highScore)
+                        settings.highScore = screen.score;
                 }
             }
         }
@@ -266,7 +264,7 @@ Scene {
                 }
                 SoundEffect {
                     id: fanSound
-                    muted: screen.muted
+                    muted: settings.noSound
                     volume: Math.max(0.0, Math.min(0.4, Math.abs(1.0 - (Math.abs(x - player.x) / 150) / 10)));
                     source: "sounds/fan.wav"
                     loops: SoundEffect.Infinite

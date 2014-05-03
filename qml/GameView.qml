@@ -22,6 +22,7 @@ import Bacon2D 1.0
 Game {
     id: game
     currentScene: menuScene
+    gameName: "com.ubuntu.developer.ken-vandine.pathwind"
 
     Image {
         anchors.fill: parent
@@ -30,13 +31,10 @@ Game {
 
     PlayingScene {
         id: playingScene
-        muted: menuScene.muted
     }
 
     MenuScene {
         id: menuScene
-        muted: false
-        highscore: playingScene.highscore
         onPlayClicked: game.currentScene = playingScene
         onReplayClicked: { playingScene.reset(); game.currentScene = playingScene; }
         onAboutClicked: game.currentScene = aboutScene
@@ -58,7 +56,12 @@ Game {
         visible: game.currentScene === playingScene
         fuel: playingScene.fuel
         fuelPlus: playingScene.fuelPlus
-        muted: playingScene.muted
         onTogglePause: playingScene.running = !playingScene.running
+    }
+
+    Settings {
+        id: settings
+        property int highScore: 0
+        property bool noSound: false
     }
 }

@@ -113,7 +113,7 @@ Entity {
 
     SoundEffect {
         id: jetSound
-        muted: screen.muted
+        muted: settings.noSound
         volume: 0.5
         loops: SoundEffect.Infinite
         source: "sounds/jet.wav"
@@ -121,14 +121,14 @@ Entity {
 
     SoundEffect {
         id: hitSound
-        muted: screen.muted
+        muted: settings.noSound
         volume: 0.5
         source: "sounds/hit.wav"
     }
 
     SoundEffect {
         id: gasSound
-        muted: screen.muted
+        muted: settings.noSound
         volume: 0.5
         source: "sounds/gas.wav"
     }
