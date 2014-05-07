@@ -18,12 +18,10 @@
 
 import QtQuick 2.2
 import Bacon2D 1.0
-import U1db 1.0 as U1db
 
 Game {
     id: game
     currentScene: menuScene
-    gameName: mainView.applicationName
 
     Image {
         anchors.fill: parent

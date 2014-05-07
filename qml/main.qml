@@ -44,6 +44,7 @@ MainView {
             GameView {
                 id: gameView
                 anchors.fill: parent
+                gameName: mainView.applicationName
             }
         }
     }
