@@ -16,11 +16,6 @@ int main(int argc, char *argv[])
     m_view->setResizeMode(QQuickView::SizeRootObjectToView);
     m_view->setTitle("PathWind");
     m_view->setSource(QUrl("qrc:/main.qml"));
-#if defined(Q_OS_ANDROID)
     m_view->showFullScreen();
-#else
-    m_view->show();
-#endif
-
     return app.exec();
 }
