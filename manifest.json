@@ -1,15 +1,15 @@
 {
     "name": "com.ubuntu.developer.ken-vandine.pathwind",
-    "description": "description of pathwind",
+    "description": "Your survival depends on you flying skills. In this game you need to get as far as possible while avoiding flying objects",
     "framework": "ubuntu-sdk-14.04-qml-dev1",
-    "architecture": "all",
-    "title": "pathwind",
+    "architecture": "armhf",
+    "title": "PathWind",
     "hooks": {
         "pathwind": {
             "apparmor": "pathwind.json",
             "desktop": "pathwind.desktop"
         }
     },
-    "version": "0.1",
-    "maintainer": "Ken VanDine <ken.vandine@canonical.com>"
+    "version": "0.2.5",
+    "maintainer": "Ken VanDine <ken.vandine@ubuntu.com>"
 }
