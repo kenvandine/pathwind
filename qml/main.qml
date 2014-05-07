@@ -24,7 +24,7 @@ MainView {
     id: mainView
     width: 854
     height: 480
-    applicationName: "com.ubuntu.developer.ken-vandine.pathwind"
+    applicationName: gameView.gameName
 
     Page {
         id: root
@@ -44,7 +44,6 @@ MainView {
             GameView {
                 id: gameView
                 anchors.fill: parent
-                gameName: mainView.applicationName
             }
         }
     }

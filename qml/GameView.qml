@@ -22,6 +22,7 @@ import Bacon2D 1.0
 Game {
     id: game
     currentScene: menuScene
+    gameName: "com.ubuntu.developer.ken-vandine.pathwind"
 
     Image {
         anchors.fill: parent
