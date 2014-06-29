@@ -26,7 +26,6 @@ Item {
     height: image.height
 
     property int deviation: 6
-    property alias data: board.children
     property alias showSmallBird: smallBird.visible
     property bool animating: root.visible
 
