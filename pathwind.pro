@@ -3,7 +3,7 @@ folder_01.source = qml
 folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
 
-QT += qml multimedia
+QT += qml
 
 QML_IMPORT_PATH =
 
