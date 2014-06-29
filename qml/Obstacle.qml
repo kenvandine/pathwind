@@ -22,7 +22,7 @@ import Bacon2D 1.0
 Entity {
     id: obstacle
     objectName: "obstacle"
-    bodyType: Body.Dynamic
+    bodyType: Entity.Dynamic
     bullet: false
     sleepingAllowed: true
     fixedRotation: false

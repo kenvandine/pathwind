@@ -36,7 +36,7 @@ Entity {
     bullet: false
     fixedRotation: true
     sleepingAllowed: true
-    bodyType: Body.Dynamic
+    bodyType: Entity.Dynamic
     gravityScale: 2
     behavior: ScriptBehavior {
         script: advance()

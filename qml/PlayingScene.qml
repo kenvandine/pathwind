@@ -23,6 +23,9 @@ import Ubuntu.Components 0.1
 
 Scene {
     id: scene
+    physics: true
+    gravity: Qt.point(0, 0)
+    pixelsPerMeter: units.gu(5)
     height: parent.height + parent.height/2
     width: parent.width
     property alias fuel: player.fuel
@@ -34,10 +37,10 @@ Scene {
     }
 
     function cleanObstacles() {
-        for (var i = 0; i < world.children.length; i++) {
-            var obj = world.children[i];
+        for (var i = 0; i < scene.children.length; i++) {
+            var obj = scene.children[i];
             if (obj != null) {
-                if (((obj.bodyType === Body.Dynamic || obj.bodyType === Body.Kinematic)) && (obj.objectName !== "player")) {
+                if (((obj.bodyType === Entity.Dynamic || obj.bodyType === Entity.Kinematic)) && (obj.objectName !== "player")) {
                     obj.destroy();
                 }
             }
@@ -73,8 +76,8 @@ Scene {
         animated: true
         source: "images/scene/mountain.png"
         horizontalStep: -2
-        drawType: Bacon2D.PlaneDrawType
-        layerType: Bacon2D.MirroredType
+        drawType: Layer.PlaneDraw
+        layerType: Layer.Mirrored
     }
 
     ImageLayer {
@@ -88,189 +91,182 @@ Scene {
         animated: true
         source: "images/scene/ground.png"
         horizontalStep: -5
-        drawType: Bacon2D.PlaneDrawType
-        layerType: Bacon2D.MirroredType
+        drawType: Layer.PlaneDraw
+        layerType: Layer.Mirrored
     }
 
-    World {
-        id: world
-        anchors.fill: parent
-        running: scene.running
-        gravity: Qt.point(0, 0)
-        pixelsPerMeter: units.gu(5)
 
-        property var debrisImages: [ "dust1", "dust2", "dust3", "leaf1", "leaf2", "leaf3" ]
-        property var obstacles: [ "Guitar", "Clock", "Door", "BoxObj", "Sign", "Television", "Trash", "Umbrella", "WalkSign", "Wheel" ]
-        property int levelLength: 50
-        property int fuelInterval: 20
+    property var debrisImages: [ "dust1", "dust2", "dust3", "leaf1", "leaf2", "leaf3" ]
+    property var obstacles: [ "Guitar", "Clock", "Door", "BoxObj", "Sign", "Television", "Trash", "Umbrella", "WalkSign", "Wheel" ]
+    property int levelLength: 50
+    property int fuelInterval: 20
 
-        HowToFlag {
-            id: howTo
-            y: (parent.height/2) - height/3
-            x: parent.width * 0.2
-            visible: x > (parent.x - width)
-            showSmallBird: false
-            Behavior on x {
-                NumberAnimation { duration: 3000 }
+    HowToFlag {
+        id: howTo
+        y: (parent.height/2) - height/3
+        x: parent.width * 0.2
+        visible: x > (parent.x - width)
+        showSmallBird: false
+        Behavior on x {
+            NumberAnimation { duration: 3000 }
+        }
+    }
+
+    Player {
+        id: player
+        z: 1
+        onGameOver: {
+            game.currentScene = menuScene;
+            scene.reset();
+       }
+    }
+
+    Wall {
+        id: leftWall
+        width: 0
+        anchors {
+            right: parent.left
+            top: parent.top
+            bottom: parent.bottom
+        }
+    }
+
+    Floor {
+        anchors {
+            bottom: parent.bottom
+            right: parent.right
+        }
+        width: parent.width + player.width
+    }
+
+    Ceil {
+        anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.top
+        }
+    }
+
+    HighScore {
+        id: highScoreFlag
+        y: 300
+        visible: false
+    }
+
+    Entity {
+        updateInterval: 100
+        behavior: ScriptBehavior {
+            script: {
+                var i = Math.floor(Math.random() * scene.debrisImages.length);
+                var comp = Qt.createComponent("Debris.qml");
+                if (comp.status == Component.Ready)
+                    var object = comp.createObject(scene,
+                                                   {"x": player.x + scene.width,
+                                                    "y": (scene.height - 20) - Math.max((game.height * Math.random()), (game.height - height)),
+                                                    "path": "images/particles/"+scene.debrisImages[i]+".png",
+                                                    "linearVelocity.x": -(10 + (10 * Math.random()))});
             }
         }
+    }
 
-        Player {
-            id: player
-            z: 1
-            onGameOver: {
-                game.currentScene = menuScene;
-                scene.reset();
-           }
-        }
-
-        Wall {
-            id: leftWall
-            width: 0
-            anchors {
-                right: parent.left
-                top: parent.top
-                bottom: parent.bottom
+    Entity {
+        id: birdInterval
+        updateInterval: 20000
+        behavior: ScriptBehavior {
+            script: {
+                var object = birdComp.createObject(scene,
+                                                   {"x": player.x + scene.width,
+                                                   "y": (scene.y + scene.height * 0.3) + Math.max(((game.height * 0.7) * Math.random()), (game.height/2 - height))});
             }
         }
+    }
 
-        Floor {
-            anchors {
-                bottom: parent.bottom
-                right: parent.right
-            }
-            width: parent.width + player.width
-        }
-
-        Ceil {
-            anchors {
-                left: parent.left
-                right: parent.right
-                bottom: parent.top
+    Entity {
+        id: fuelInterval
+        updateInterval: 12000
+        behavior: ScriptBehavior {
+            script: {
+                var object = fuelComp.createObject(scene,
+                                                    {"x": player.x + scene.width,
+                                                     "y": (scene.height - 20) - Math.max((game.height * Math.random()), (game.height - height))});
             }
         }
+    }
 
-        HighScore {
-            id: highScoreFlag
-            y: 300
-            visible: false            
+    Entity {
+        updateInterval: 1000
+        behavior: ScriptBehavior {
+            script: {
+                screen.score = screen.score + screen.levelCount;
+                if (screen.score > settings.highScore)
+                    settings.highScore = screen.score;
+            }
         }
+    }
 
-        Entity {
-            updateInterval: 100
-            behavior: ScriptBehavior {
-                script: {
-                    var i = Math.floor(Math.random() * world.debrisImages.length);
-                    var comp = Qt.createComponent("Debris.qml");
-                    if (comp.status == Component.Ready)
-                        var object = comp.createObject(world, 
-                                                       {"x": player.x + world.width, 
-                                                        "y": (world.height - 20) - Math.max((game.height * Math.random()), (game.height - height)),
-                                                        "path": "images/particles/"+world.debrisImages[i]+".png",
-                                                        "linearVelocity.x": -(10 + (10 * Math.random()))});
+    Entity {
+        id: obstacleInterval
+        updateInterval: 5000
+        behavior: ScriptBehavior {
+            script: {
+                var i = Math.floor(Math.random() * scene.obstacles.length);
+                var comp = Qt.createComponent(scene.obstacles[i]+".qml");
+                if (comp.status == Component.Ready) {
+                    var object = comp.createObject(scene,
+                                                   {"x": player.x + scene.width,
+                                                    "y": scene.height - Math.max((game.height * Math.random()), (game.height - height)),
+                                                    "linearVelocity.x": -(screen.levelCount * 2)});
+                    if (!object.fixedRotation)
+                        object.rotation = 10 + Math.random() * 340;
                 }
             }
         }
+    }
 
-        Entity {
-            id: birdInterval
-            updateInterval: 20000
-            behavior: ScriptBehavior {
-                script: {
-                    var object = birdComp.createObject(world,
-                                                       {"x": player.x + world.width,
-                                                       "y": (world.y + world.height * 0.3) + Math.max(((game.height * 0.7) * Math.random()), (game.height/2 - height))});
-                }
+    Entity {
+        id: fanInterval
+        updateInterval: (screen.levelCount * 20000)
+        behavior: ScriptBehavior {
+            script: {
+                var object = fanComp.createObject(scene,
+                                                  {"x": player.x + (scene.width * 1.5)});
+                object.running = true;
+                screen.levelCount++;
             }
         }
+    }
 
-        Entity {
-            id: fuelInterval
-            updateInterval: 12000
-            behavior: ScriptBehavior {
-                script: {
-                    var object = fuelComp.createObject(world,
-                                                        {"x": player.x + world.width,
-                                                         "y": (world.height - 20) - Math.max((game.height * Math.random()), (game.height - height))});
+    Component {
+        id: fuelComp
+        Fuel {}
+    }
+
+    Component {
+        id: birdComp
+        Bird {}
+    }
+
+    Component {
+        id: fanComp
+        Fan {
+            onRunningChanged: {
+                if (running)
+                    fanSound.play();
+                else
+                    fanSound.stop();
+            }
+            onXChanged: {
+                if (x < -scene.width) {
+                    running = false;
+                    destroy();
                 }
             }
-        }
-
-        Entity {
-            updateInterval: 1000
-            behavior: ScriptBehavior {
-                script: {
-                    screen.score = screen.score + screen.levelCount;
-                    if (screen.score > settings.highScore)
-                        settings.highScore = screen.score;
-                }
-            }
-        }
-
-        Entity {
-            id: obstacleInterval
-            updateInterval: 5000
-            behavior: ScriptBehavior {
-                script: {
-                    var i = Math.floor(Math.random() * world.obstacles.length);
-                    var comp = Qt.createComponent(world.obstacles[i]+".qml");
-                    if (comp.status == Component.Ready) {
-                        var object = comp.createObject(world,
-                                                       {"x": player.x + world.width,
-                                                        "y": world.height - Math.max((game.height * Math.random()), (game.height - height)),
-                                                        "linearVelocity.x": -(screen.levelCount * 2)});
-                        if (!object.fixedRotation)
-                            object.rotation = 10 + Math.random() * 340;
-                    }
-                }
-            }
-        }
-
-        Entity {
-            id: fanInterval
-            updateInterval: (screen.levelCount * 20000)
-            behavior: ScriptBehavior {
-                script: {
-                    var object = fanComp.createObject(world,
-                                                      {"x": player.x + (world.width * 1.5)});
-                    object.running = true;
-                    screen.levelCount++;
-                }
-            }
-        }
-
-        Component {
-            id: fuelComp
-            Fuel {}
-        }
-
-        Component {
-            id: birdComp
-            Bird {}
-        }
-
-        Component {
-            id: fanComp
-            Fan {
-                onRunningChanged: {
-                    if (running)
-                        fanSound.play();
-                    else
-                        fanSound.stop();
-                }
-                onXChanged: {
-                    if (x < -world.width) {
-                        running = false;
-                        destroy();
-                    }
-                }
-                SoundEffect {
-                    id: fanSound
-                    muted: settings.noSound
-                    volume: Math.max(0.0, Math.min(0.4, Math.abs(1.0 - (Math.abs(x - player.x) / 150) / 10)));
-                    source: "sounds/fan.wav"
-                    loops: SoundEffect.Infinite
-                }
+            SoundEffect {
+                id: fanSound
+                muted: settings.noSound
+                volume: Math.max(0.0, Math.min(0.4, Math.abs(1.0 - (Math.abs(x - player.x) / 150) / 10)));
+                source: "sounds/fan.wav"
+                loops: SoundEffect.Infinite
             }
         }
     }

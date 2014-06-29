@@ -28,7 +28,7 @@ Entity {
     fixedRotation: true
     linearVelocity.x: -10
     linearVelocity.y: 0
-    bodyType: Body.Kinematic
+    bodyType: Entity.Kinematic
 
     fixtures: Box {
         width: 36

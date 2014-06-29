@@ -32,7 +32,7 @@ Entity {
     width: 305
     height: 447
     fixedRotation: true
-    bodyType: Body.Dynamic
+    bodyType: Entity.Dynamic
     linearVelocity.x: -(units.gu(1)/2)
     property bool running: false
 
