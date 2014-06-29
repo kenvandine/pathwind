@@ -38,6 +38,10 @@ Entity {
     sleepingAllowed: true
     bodyType: Entity.Dynamic
     gravityScale: 2
+    x: parent.width * 0.2
+    y: parent.height * 0.5
+    linearVelocity.x: 0
+
     behavior: ScriptBehavior {
         script: advance()
     }
@@ -132,8 +136,6 @@ Entity {
         volume: 0.5
         source: "sounds/gas.wav"
     }
-
-    Component.onCompleted: reset()
 
     function reset() {
         player.x = parent.width * 0.2;
