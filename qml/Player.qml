@@ -208,12 +208,13 @@ Entity {
         // enemy collision
         if ((other.parent.objectName === "obstacle") ||
             (other.parent.objectName === "bird")) {
-            hitSound.play();
-            player.alive = false;
-            //other.parent.destroy();
-            //player.linearVelocity.x = 0;
-            //player.linearVelocity.y = 0;
-            return;
+            var valA = player.x + (player.width/2);
+            var valB = other.parent.x + (other.parent.width/2);
+
+            if (valA < valB) {
+                hitSound.play();
+                player.alive = false;
+            }
         }
     }
 
