@@ -19,13 +19,12 @@
 import QtQuick 2.2
 import QtMultimedia 5.0
 import Bacon2D 1.0
-import Ubuntu.Components 0.1
 
 Scene {
     id: scene
     physics: true
     gravity: Qt.point(0, 0)
-    pixelsPerMeter: units.gu(5)
+    pixelsPerMeter: 75
     height: parent.height + parent.height/2
     width: parent.width
     property alias fuel: player.fuel
@@ -69,14 +68,14 @@ Scene {
         id: mountain
         anchors {
             left: parent.left
+            right: parent.right
             bottom: parent.bottom
         }
         height: 152
-        width: 3416
+        //width: 2000
         animated: true
         source: "images/scene/mountain.png"
         horizontalStep: -2
-        drawType: Layer.PlaneDraw
         layerType: Layer.Mirrored
     }
 
@@ -84,14 +83,14 @@ Scene {
         id: ground
         anchors {
             left: parent.left
+            right: parent.right
             bottom: parent.bottom
         }
         height: 136
-        width: 3416
+        //width: 2000
         animated: true
         source: "images/scene/ground.png"
         horizontalStep: -5
-        drawType: Layer.PlaneDraw
         layerType: Layer.Mirrored
     }
 

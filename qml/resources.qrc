@@ -22,6 +22,7 @@
         <file>LoopImage.qml</file>
         <file>LoopText.qml</file>
         <file>main.qml</file>
+        <file>ubuntu.qml</file>
         <file>MenuScene.qml</file>
         <file>Obstacle.qml</file>
         <file>Player.qml</file>

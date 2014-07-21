@@ -1,9 +1,9 @@
 # Add more folders to ship with the application, here
 folder_01.source = qml
-folder_01.target = qml
+#folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
 
-QT += qml
+QT += qml multimedia
 
 QML_IMPORT_PATH =
 
@@ -31,4 +31,7 @@ ANDROID_EXTRA_LIBS =
 #QMAKE_EXTRA_TARGETS += manifest
 #QMAKE_CLEAN += $${manifest.files}
 
-OTHER_FILES +=
+OTHER_FILES += \
+    android/AndroidManifest.xml
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

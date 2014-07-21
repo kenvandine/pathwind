@@ -26,7 +26,7 @@ InfoFlag {
         opacity: 0.8
         color: "black"
         font.family: dPuntillasFont.name
-        font.pointSize: 36
+        font.pointSize: 32
         text: "Tap and hold to fly higher"
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
     }

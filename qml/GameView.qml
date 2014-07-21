@@ -52,7 +52,7 @@ Game {
             left: parent.left
             right: parent.right
         }
-        z: 1
+        z: 10
         visible: game.currentScene === playingScene
         fuel: playingScene.fuel
         fuelPlus: playingScene.fuelPlus
