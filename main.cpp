@@ -15,13 +15,8 @@ int main(int argc, char *argv[])
     QQuickView* m_view = new QQuickView();
     m_view->setResizeMode(QQuickView::SizeRootObjectToView);
     m_view->setTitle("PathWind");
-//#if defined(Q_OS_ANDROID)
-    //m_view->engine()->setBaseUrl(QUrl::fromLocalFile("assets:/"));
-    //m_view->setSource(QUrl::fromLocalFile("qml/main.qml"));
-    //m_view->setSource(QUrl("qrc:/main.qml"));
 #if defined(Q_OS_LINUX)
     m_view->setSource(QUrl("qrc:/ubuntu.qml"));
-    //m_view->setSource(QUrl::fromLocalFile("qml/ubuntu.qml"));
 #else
     m_view->setSource(QUrl("qrc:/main.qml"));
 #endif
