@@ -24,7 +24,7 @@ Scene {
     id: scene
     physics: true
     gravity: Qt.point(0, 0)
-    pixelsPerMeter: 75
+    pixelsPerMeter: 18
     height: parent.height + parent.height/2
     width: parent.width
     property alias fuel: player.fuel

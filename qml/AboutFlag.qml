@@ -23,7 +23,9 @@ InfoFlag {
     id: root
 
     LoopText {
-        width: parent.width
+        anchors.centerIn: parent
+        width: parent.width * 0.8
+        height: parent.height * 0.8
         frameCount: 4
         duration: 20000
         running: root.animating

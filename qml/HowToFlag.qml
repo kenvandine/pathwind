@@ -21,8 +21,9 @@ import QtQuick 2.2
 
 InfoFlag {
     Text {
+        anchors.centerIn: parent
         FontLoader { id: dPuntillasFont; source: "fonts/d-puntillas-D-to-tiptoe.ttf" }
-        width: parent.width * 0.8
+        width: parent.width * 0.7
         opacity: 0.8
         color: "black"
         font.family: dPuntillasFont.name

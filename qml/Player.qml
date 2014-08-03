@@ -37,7 +37,7 @@ Entity {
     fixedRotation: true
     sleepingAllowed: true
     bodyType: Entity.Dynamic
-    gravityScale: 1
+    gravityScale: 2
     x: parent.width * 0.2
     y: parent.height * 0.5
     linearVelocity.x: 0
@@ -154,10 +154,10 @@ Entity {
             player.linearVelocity.x = -20;
 
         if (player.playerState == "falling")
-            player.applyLinearImpulse(Qt.point(0, 1), getWorldCenter());
+            player.applyLinearImpulse(Qt.point(0, 2), getWorldCenter());
 
         if (player.playerState == "flying") {
-            var impulse = Qt.point(0, -1);
+            var impulse = Qt.point(0, -2);
             player.fuel = Math.max(0, player.fuel - 0.044);
 
             if (player.fuel <= 0) {
