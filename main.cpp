@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     //m_view->engine()->setBaseUrl(QUrl::fromLocalFile("assets:/"));
     //m_view->setSource(QUrl::fromLocalFile("qml/main.qml"));
     //m_view->setSource(QUrl("qrc:/main.qml"));
-#if define(Q_OS_LINUX)
+#if defined(Q_OS_LINUX)
     m_view->setSource(QUrl("qrc:/ubuntu.qml"));
     //m_view->setSource(QUrl::fromLocalFile("qml/ubuntu.qml"));
 #else
