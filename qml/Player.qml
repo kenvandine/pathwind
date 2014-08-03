@@ -37,7 +37,7 @@ Entity {
     fixedRotation: true
     sleepingAllowed: true
     bodyType: Entity.Dynamic
-    gravityScale: 2
+    gravityScale: 1
     x: parent.width * 0.2
     y: parent.height * 0.5
     linearVelocity.x: 0
