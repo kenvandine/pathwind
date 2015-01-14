@@ -78,7 +78,6 @@ PhysicsEntity {
     Sprite {
         id: sprite
         anchors.fill: parent
-        entity: player
         animation: player.playerState
         animations: [
             SpriteAnimation {
@@ -151,49 +150,6 @@ PhysicsEntity {
         player.linearVelocity.x = 0;
     }
 
-    /*
-    function advance() {
-        if (player.alive)
-            player.linearVelocity.x = 0;
-        else
-            player.linearVelocity.x = -20;
-
-        if (player.playerState == "falling") {
-            player.applyLinearImpulse(Qt.point(0,2), player.body.getWorldCenter());
-        }
-
-        if (player.playerState == "flying") {
-            var impulse = Qt.point(0, -2);
-            player.fuel = Math.max(0, player.fuel - 0.044);
-
-            if (player.fuel <= 0) {
-                if (player.fuelPlus == 0) {
-                    player.stop();
-                } else {
-                    player.fuelPlus--;
-                    player.fuel = 1.0;
-                }
-            } else {
-                print ("ELSE");
-                //player.applyLinearImpulse(Qt.point(0,center.y - 2), center);
-                //player.applyLinearImpulse(Qt.point(0,-2), player.getWorldCenter());
-                //player.applyLinearImpulse(Qt.point(player.x, player.y + 20), Qt.point(player.x, player.y));
-                player.body.applyLinearImpulse(impulse, player.body.getWorldCenter());
-
-                print ("ELSE2");
-            }
-        } else {
-            player.fuel = Math.min(1.0, player.fuel + 0.05);
-        }
-
-        if (player.x + player.width < -parent.x) {
-            player.linearVelocity.x = 0;
-            player.gameOver();
-        }
-
-    }
-    */
-
     function advance() {
         if (player.alive)
             player.linearVelocity.x = 0;
@@ -225,7 +181,6 @@ PhysicsEntity {
             player.linearVelocity.x = 0;
             player.gameOver();
         }
-
     }
 
 

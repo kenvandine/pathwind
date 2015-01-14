@@ -30,11 +30,6 @@ Scene {
     property alias fuel: player.fuel
     property alias fuelPlus: player.fuelPlus
 
-    onRunningChanged: {
-        //if (!running) 
-        //    game.currentScene = menuScene;
-    }
-
     function cleanObstacles() {
         for (var i = 0; i < scene.children.length; i++) {
             var obj = scene.children[i];
@@ -97,7 +92,6 @@ Scene {
         }
     }
 
-
     property var debrisImages: [ "dust1", "dust2", "dust3", "leaf1", "leaf2", "leaf3" ]
     property var obstacles: [ "Guitar", "Clock", "Door", "BoxObj", "Sign", "Television", "Trash", "Umbrella", "WalkSign", "Wheel" ]
     property int levelLength: 50
@@ -156,7 +150,7 @@ Scene {
             script: {
                 var object = birdComp.createObject(scene,
                                                    {"x": player.x + scene.width,
-                                                   "y": (scene.y + scene.height * 0.3) + Math.max(((game.height * 0.7) * Math.random()), (game.height/2 - height))});
+                                                    "y": (scene.y + scene.height * 0.3) + Math.max(((game.height * 0.7) * Math.random()), (game.height/2 - height))});
             }
         }
     }
