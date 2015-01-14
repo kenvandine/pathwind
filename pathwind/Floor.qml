@@ -23,6 +23,9 @@ import Bacon2D 1.0
 Item {
     objectName: "floor"
     height: 20
+    transformOrigin: Item.TopLeft
+    property alias body: box
+
     property alias world: box.world
     BoxBody {
         id: box
@@ -35,14 +38,4 @@ Item {
         height: parent.height
         target: parent
     }
-
-    /*
-    fixtures: Box {
-        x: parent.x
-        y: parent.y
-        width: parent.width
-        height: parent.height
-        categories: Fixture.Category2
-    }
-    */
 }

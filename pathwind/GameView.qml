@@ -32,7 +32,7 @@ Game {
     PlayingScene {
         id: playingScene
         width: parent.width
-        height: parent.height
+        height: parent.height + parent.height/2
     }
 
     MenuScene {

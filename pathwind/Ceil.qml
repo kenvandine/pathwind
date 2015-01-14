@@ -20,14 +20,21 @@
 import QtQuick 2.2
 import Bacon2D 1.0
 
-PhysicsEntity {
-    height: 0
-    bodyType: Body.Static
-    fixtures: Box {
+Item {
+    height: 20
+    transformOrigin: Item.TopLeft
+    property alias body: box
+
+    property alias world: box.world
+    BoxBody {
+        id: box
+        world: scene.world
+        bodyType: Body.Static
+        categories: Fixture.Category6
         x: parent.x
         y: parent.y
         width: parent.width
         height: parent.height
-        categories: Box.Category6
+        target: parent
     }
 }

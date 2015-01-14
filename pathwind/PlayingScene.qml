@@ -23,10 +23,9 @@ import Bacon2D 1.0
 Scene {
     id: scene
     physics: true
+    debug: true
     gravity: Qt.point(0, 2)
     pixelsPerMeter: 18
-    height: parent.height + parent.height/2
-    width: parent.width
     property alias fuel: player.fuel
     property alias fuelPlus: player.fuelPlus
 
@@ -117,6 +116,36 @@ Scene {
        }
     }
 
+
+    Wall {
+        id: leftWall
+        width: 0
+        anchors {
+            right: parent.left
+            top: parent.top
+            bottom: parent.bottom
+        }
+    }
+
+    /*
+    Floor {
+        anchors {
+            top: parent.bottom
+            right: parent.right
+        }
+        width: parent.width + player.width
+        height: 20
+    }
+
+    Ceil {
+        anchors {
+            left: parent.left
+            right: parent.right
+        }
+        y: -scene.height - height
+    }
+    */
+
     Boundaries {
         categories: Fixture.Category2
     }
@@ -184,6 +213,7 @@ Scene {
         behavior: ScriptBehavior {
             script: {
                 var i = Math.floor(Math.random() * scene.obstacles.length);
+                print (scene.obstacles[i]+".qml");
                 var comp = Qt.createComponent(scene.obstacles[i]+".qml");
                 if (comp.status == Component.Ready) {
                     var object = comp.createObject(scene,
@@ -193,6 +223,7 @@ Scene {
                     if (!object.fixedRotation)
                         object.rotation = 10 + Math.random() * 340;
                 }
+                print (scene.obstacles[i]+".qml");
             }
         }
     }
