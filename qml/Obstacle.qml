@@ -19,10 +19,10 @@
 import QtQuick 2.2
 import Bacon2D 1.0
 
-Entity {
+PhysicsEntity {
     id: obstacle
     objectName: "obstacle"
-    bodyType: Entity.Dynamic
+    bodyType: Body.Dynamic
     bullet: false
     sleepingAllowed: true
     fixedRotation: false

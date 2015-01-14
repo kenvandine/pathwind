@@ -31,18 +31,20 @@ Game {
 
     PlayingScene {
         id: playingScene
+        width: parent.width
+        height: parent.height
     }
 
     MenuScene {
         id: menuScene
-        onPlayClicked: game.currentScene = playingScene
-        onReplayClicked: { playingScene.reset(); game.currentScene = playingScene; }
-        onAboutClicked: game.currentScene = aboutScene
+        onPlayClicked: game.pushScene(playingScene) //game.currentScene = playingScene
+        onReplayClicked: { playingScene.reset(); game.pushScene(playingScene); }//game.currentScene = playingScene; }
+        onAboutClicked: game.pushScene(aboutScene)//game.currentScene = aboutScene
     }
 
     AboutScene {
         id: aboutScene
-        onBackClicked: game.currentScene = menuScene
+        onBackClicked: game.pushScene(menuScene)//game.currentScene = menuScene
     }
 
     Screen {
@@ -56,7 +58,7 @@ Game {
         visible: game.currentScene === playingScene
         fuel: playingScene.fuel
         fuelPlus: playingScene.fuelPlus
-        onTogglePause: playingScene.running = !playingScene.running
+        onTogglePause: game.gameState === Bacon2D.Running ? game.gameState = Bacon2D.Paused : game.gameState = Bacon2D.Running
     }
 
     Settings {

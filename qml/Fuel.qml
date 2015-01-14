@@ -20,7 +20,7 @@
 import QtQuick 2.2
 import Bacon2D 1.0
 
-Entity {
+PhysicsEntity {
     id: fuel
     objectName: "fuel"
     width: 90
@@ -28,7 +28,7 @@ Entity {
     fixedRotation: true
     linearVelocity.x: -10
     linearVelocity.y: 0
-    bodyType: Entity.Kinematic
+    bodyType: Body.Kinematic
 
     fixtures: Box {
         width: 36

@@ -20,14 +20,14 @@
 import QtQuick 2.2
 import Bacon2D 1.0
 
-Entity {
+PhysicsEntity {
     objectName: "bird"
     width: 90
     height: 77
     linearVelocity.x: -5
     linearVelocity.y: 0
     fixedRotation: true
-    bodyType: Entity.Kinematic
+    bodyType: Body.Kinematic
 
     fixtures: Box {
         width: 90

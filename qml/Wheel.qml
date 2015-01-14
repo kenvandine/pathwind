@@ -27,7 +27,7 @@ Obstacle {
         anchors.centerIn: parent
         radius: 47
         friction: 0.1
-        density: parent.density
+        density: density
         restitution: 1.0
     }
 }

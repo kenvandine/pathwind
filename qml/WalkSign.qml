@@ -31,7 +31,7 @@ Obstacle {
             }
             radius: 28
             friction: 0.1
-            density: parent.density
+            density: density
             restitution: 0.7
         },
         Box {
@@ -40,7 +40,7 @@ Obstacle {
             width: 6
             height: 126
             friction: 0.1
-            density: parent.density
+            density: density
             restitution: 0.7
         }
     ]

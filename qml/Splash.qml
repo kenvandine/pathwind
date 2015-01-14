@@ -19,13 +19,13 @@ Item {
         width: 142
         height: 236
         animation: "running"
+        spriteState: splash.running ? Bacon2D.Running : Bacon2D.Inactive
         animations: [
             SpriteAnimation {
                 name: "running"
                 source: "images/loading/loading.png"
                 frames: 4
                 duration: 200
-                running: splash.running
                 loops: Animation.Infinite
             }]
     }

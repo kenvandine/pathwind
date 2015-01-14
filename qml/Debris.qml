@@ -19,9 +19,9 @@
 import QtQuick 2.2
 import Bacon2D 1.0
 
-Entity {
+PhysicsEntity {
     objectName: "debris"
-    bodyType: Entity.Dynamic
+    bodyType: Body.Dynamic
     bullet: false
     sleepingAllowed: true
     fixedRotation: false
@@ -32,7 +32,6 @@ Entity {
     property var path
 
     fixtures: Box {
-        anchors.fill: parent
         sensor: true
         groupIndex: 2
     }

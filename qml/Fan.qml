@@ -20,7 +20,7 @@
 import QtQuick 2.2
 import Bacon2D 1.0
 
-Entity {
+PhysicsEntity {
     id: root
     objectName: "fan"
     anchors {
@@ -31,12 +31,11 @@ Entity {
     width: 305
     height: 447
     fixedRotation: true
-    bodyType: Entity.Dynamic
+    bodyType: Body.Dynamic
     linearVelocity.x: -5
     property bool running: false
 
     fixtures: Box {
-        anchors.fill: parent
         sensor: true
     }
 

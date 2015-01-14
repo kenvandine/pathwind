@@ -28,7 +28,7 @@ Obstacle {
             x: 28
             y: 28
             friction: 0.1
-            density: parent.density/3
+            density: density/3
             restitution: 1.0
             vertices: [
                 Qt.point(58, 11),
@@ -42,7 +42,7 @@ Obstacle {
             width: 6
             height: 104
             friction: 0.1
-            density: parent.density/3
+            density: density/3
             restitution: 1.0
         }
     ]

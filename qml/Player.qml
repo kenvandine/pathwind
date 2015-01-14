@@ -21,7 +21,7 @@ import QtQuick 2.2
 import QtMultimedia 5.0
 import Bacon2D 1.0
 
-Entity {
+PhysicsEntity {
     id: player
 
     objectName: "player"
@@ -31,16 +31,19 @@ Entity {
     property string playerState: "falling"
     signal gameOver
 
+    onPlayerStateChanged: print (playerState)
+
     width: 120
     height: 132
     bullet: false
     fixedRotation: true
     sleepingAllowed: true
-    bodyType: Entity.Dynamic
-    gravityScale: 2
+    bodyType: Body.Dynamic
+    //gravityScale: 2
     x: parent.width * 0.2
     y: parent.height * 0.5
     linearVelocity.x: 0
+    //onLinearVelocityChanged: print (linearVelocity)
 
     behavior: ScriptBehavior {
         script: advance()
@@ -56,7 +59,7 @@ Entity {
             density: 1
             friction: 1
             restitution: 0
-            categories: Box.Category4
+            categories: Fixture.Category4
             onBeginContact: handleCollision(other);
         },
         Box {
@@ -67,7 +70,7 @@ Entity {
             density: 1
             friction: 1
             restitution: 0
-            categories: Box.Category4
+            categories: Fixture.Category4
             onBeginContact: handleCollision(other);
         }
     ]
@@ -75,6 +78,7 @@ Entity {
     Sprite {
         id: sprite
         anchors.fill: parent
+        entity: player
         animation: player.playerState
         animations: [
             SpriteAnimation {
@@ -147,6 +151,49 @@ Entity {
         player.linearVelocity.x = 0;
     }
 
+    /*
+    function advance() {
+        if (player.alive)
+            player.linearVelocity.x = 0;
+        else
+            player.linearVelocity.x = -20;
+
+        if (player.playerState == "falling") {
+            player.applyLinearImpulse(Qt.point(0,2), player.body.getWorldCenter());
+        }
+
+        if (player.playerState == "flying") {
+            var impulse = Qt.point(0, -2);
+            player.fuel = Math.max(0, player.fuel - 0.044);
+
+            if (player.fuel <= 0) {
+                if (player.fuelPlus == 0) {
+                    player.stop();
+                } else {
+                    player.fuelPlus--;
+                    player.fuel = 1.0;
+                }
+            } else {
+                print ("ELSE");
+                //player.applyLinearImpulse(Qt.point(0,center.y - 2), center);
+                //player.applyLinearImpulse(Qt.point(0,-2), player.getWorldCenter());
+                //player.applyLinearImpulse(Qt.point(player.x, player.y + 20), Qt.point(player.x, player.y));
+                player.body.applyLinearImpulse(impulse, player.body.getWorldCenter());
+
+                print ("ELSE2");
+            }
+        } else {
+            player.fuel = Math.min(1.0, player.fuel + 0.05);
+        }
+
+        if (player.x + player.width < -parent.x) {
+            player.linearVelocity.x = 0;
+            player.gameOver();
+        }
+
+    }
+    */
+
     function advance() {
         if (player.alive)
             player.linearVelocity.x = 0;
@@ -181,24 +228,28 @@ Entity {
 
     }
 
+
     function handleCollision(other) {
+        //print (other.categories);
+        //print (Fixture.Category2);
+        // ground collision
+        if (other.categories == Fixture.Category2) {
+            player.playerState = "walking";
+            return;
+        }
+        var target = other.getBody().target;
+        //print (target)
         // ignore debris collision
-        if (other.parent.objectName === "debris")
+        if (target.objectName === "debris")
             return;
         // ceiling collision
-        if (other.categories == Box.Category6) {
+        if (other.categories == Fixture.Category6) {
             player.linearVelocity.y = 2;
             return;
         }
 
-        // ground collision
-        if (other.categories == Box.Category2) {
-            player.playerState = "walking";
-            return;
-        }
-
         // bonus collision
-        if (other.parent.objectName === "fuel" ) {
+        if (target.objectName === "fuel" ) {
             if (player.fuelPlus == 0)
                 player.fuelPlus++;
             gasSound.play();
@@ -206,10 +257,10 @@ Entity {
         }
 
         // enemy collision
-        if ((other.parent.objectName === "obstacle") ||
-            (other.parent.objectName === "bird")) {
+        if ((target.objectName === "obstacle") ||
+            (target.objectName === "bird")) {
             var valA = player.x + (player.width/2);
-            var valB = other.parent.x + (other.parent.width/2);
+            var valB = target.x + (target.width/2);
 
             if (valA < valB) {
                 hitSound.play();
@@ -219,6 +270,7 @@ Entity {
     }
 
     function fly() {
+        print ("FLY: fuel: " + player.fuel + " state: " + player.playerState);
         if (player.fuel <= 0)
             return;
 

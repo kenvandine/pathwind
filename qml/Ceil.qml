@@ -20,12 +20,14 @@
 import QtQuick 2.2
 import Bacon2D 1.0
 
-Entity {
+PhysicsEntity {
     height: 0
-    bodyType: Entity.Static
-
+    bodyType: Body.Static
     fixtures: Box {
-        anchors.fill: parent
+        x: parent.x
+        y: parent.y
+        width: parent.width
+        height: parent.height
         categories: Box.Category6
     }
 }

@@ -24,10 +24,14 @@ Obstacle {
     path: "images/sprites/obstacles/box.png"
 
     fixtures: Box {
+        x: parent.x
+        y: parent.y
+        width: parent.width
+        height: parent.height
         width: 94
         height: 88
         friction: 0.1
-        density: parent.density
+        density: density
         restitution: 0.8
     }
 }

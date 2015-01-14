@@ -151,5 +151,15 @@
         <file>Splash.qml</file>
         <file>SettingsProperty.qml</file>
         <file>SettingsStorage.qml</file>
+        <file>Boundaries.qml</file>
+        <file>BoxBody.qml</file>
+        <file>ChainBody.qml</file>
+        <file>CircleBody.qml</file>
+        <file>EdgeBody.qml</file>
+        <file>PhysicsEntity.qml</file>
+        <file>PhysicsSprite.qml</file>
+        <file>ScreenBoundaries.qml</file>
+        <file>RectangleBoxBody.qml</file>
+        <file>PolygonBody.qml</file>
     </qresource>
 </RCC>

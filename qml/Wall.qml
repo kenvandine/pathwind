@@ -19,18 +19,22 @@
 import QtQuick 2.2
 import Bacon2D 1.0
 
-Entity {
-    bodyType: Entity.Static
+PhysicsEntity {
+    bodyType: Body.Static
     fixtures: Box {
-        anchors.fill: parent
+        x: parent.x
+        y: parent.y
+        width: parent.width
+        height: parent.height
         friction: 1
         density: 1
         groupIndex: 2
         sensor: true
 
         onEndContact: {
-            if ((other.parent.objectName !== "player") && (other.parent.objectName !== "fan")) {
-                other.parent.destroy();
+            var target = other.getBody().target;
+            if ((target.objectName !== "player") && (target.objectName !== "fan")) {
+                target.destroy();
             }
         }
     }

@@ -23,7 +23,7 @@ import Bacon2D 1.0
 Scene {
     id: scene
     physics: true
-    gravity: Qt.point(0, 0)
+    gravity: Qt.point(0, 2)
     pixelsPerMeter: 18
     height: parent.height + parent.height/2
     width: parent.width
@@ -31,15 +31,15 @@ Scene {
     property alias fuelPlus: player.fuelPlus
 
     onRunningChanged: {
-        if (!running) 
-            game.currentScene = menuScene;
+        //if (!running) 
+        //    game.currentScene = menuScene;
     }
 
     function cleanObstacles() {
         for (var i = 0; i < scene.children.length; i++) {
             var obj = scene.children[i];
             if (obj != null) {
-                if (((obj.bodyType === Entity.Dynamic || obj.bodyType === Entity.Kinematic)) && (obj.objectName !== "player")) {
+                if (((obj.bodyType === Body.Dynamic || obj.bodyType === Body.Kinematic)) && (obj.objectName !== "player")) {
                     obj.destroy();
                 }
             }
@@ -73,10 +73,12 @@ Scene {
         }
         height: 152
         //width: 2000
-        animated: true
         source: "images/scene/mountain.png"
-        horizontalStep: -2
+
         layerType: Layer.Mirrored
+        behavior: ScrollBehavior {
+            horizontalStep: -2
+        }
     }
 
     ImageLayer {
@@ -88,10 +90,11 @@ Scene {
         }
         height: 136
         //width: 2000
-        animated: true
         source: "images/scene/ground.png"
-        horizontalStep: -5
         layerType: Layer.Mirrored
+        behavior: ScrollBehavior {
+            horizontalStep: -5
+        }
     }
 
 
@@ -120,6 +123,25 @@ Scene {
        }
     }
 
+    Boundaries {
+        categories: Fixture.Category2
+    }
+
+    /*
+    ScreenBoundaries { 
+        //categories: Fixture.Category2
+        BoxBody {
+            x: parent.x
+            y: parent.height
+            width: parent.width
+            height: 20
+            world: scene.world
+            categories: Fixture.Category2
+        }
+    }
+    */
+
+    /*
     Wall {
         id: leftWall
         width: 0
@@ -131,11 +153,10 @@ Scene {
     }
 
     Floor {
-        anchors {
-            bottom: parent.bottom
-            right: parent.right
-        }
+        world: scene.world
         width: parent.width + player.width
+        x: scene.x
+        y: scene.height
     }
 
     Ceil {
@@ -145,6 +166,7 @@ Scene {
             bottom: parent.top
         }
     }
+    */
 
     HighScore {
         id: highScoreFlag

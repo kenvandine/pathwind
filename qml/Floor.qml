@@ -20,12 +20,29 @@
 import QtQuick 2.2
 import Bacon2D 1.0
 
-Entity {
+Item {
+    objectName: "floor"
     height: 20
-    bodyType: Entity.Static
-
-    fixtures: Box {
-        anchors.fill: parent
-        categories: Box.Category2
+    property alias world: box.world
+    BoxBody {
+        id: box
+        world: scene.world
+        bodyType: Body.Static
+        categories: Fixture.Category2
+        x: parent.x
+        y: parent.y
+        width: parent.width
+        height: parent.height
+        target: parent
     }
+
+    /*
+    fixtures: Box {
+        x: parent.x
+        y: parent.y
+        width: parent.width
+        height: parent.height
+        categories: Fixture.Category2
+    }
+    */
 }

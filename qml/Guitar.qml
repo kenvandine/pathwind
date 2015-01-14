@@ -28,7 +28,7 @@ Obstacle {
             y: 83
             width: 57
             height: 81
-            density: parent.density/2
+            density: density/2
             friction: 0.1
             restitution: 0.8
         },
@@ -36,7 +36,7 @@ Obstacle {
             x: 27
             width: 16
             height: 100
-            density: parent.density/2
+            density: density/2
             friction: 0.1
             restitution: 0.8
         }
