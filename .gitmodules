@@ -1,4 +1,0 @@
-[submodule "plugins/Bacon2D"]
-	path = plugins/Bacon2D
-        url = https://github.com/kenvandine/Bacon2D.git
-        branch = body-target

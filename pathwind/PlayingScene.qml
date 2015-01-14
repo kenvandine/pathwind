@@ -127,47 +127,6 @@ Scene {
         categories: Fixture.Category2
     }
 
-    /*
-    ScreenBoundaries { 
-        //categories: Fixture.Category2
-        BoxBody {
-            x: parent.x
-            y: parent.height
-            width: parent.width
-            height: 20
-            world: scene.world
-            categories: Fixture.Category2
-        }
-    }
-    */
-
-    /*
-    Wall {
-        id: leftWall
-        width: 0
-        anchors {
-            right: parent.left
-            top: parent.top
-            bottom: parent.bottom
-        }
-    }
-
-    Floor {
-        world: scene.world
-        width: parent.width + player.width
-        x: scene.x
-        y: scene.height
-    }
-
-    Ceil {
-        anchors {
-            left: parent.left
-            right: parent.right
-            bottom: parent.top
-        }
-    }
-    */
-
     HighScore {
         id: highScoreFlag
         y: 300

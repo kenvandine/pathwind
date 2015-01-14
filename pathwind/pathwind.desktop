@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=PathWind
-Exec=./pathwind
-Icon=pathwind.png
+Exec=pathwind
+Icon=pathwind/pathwind.png
 Terminal=false
 Type=Application
 X-Ubuntu-Touch=true
