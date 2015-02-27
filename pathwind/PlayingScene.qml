@@ -22,6 +22,8 @@ import Bacon2D 1.0
 
 Scene {
     id: scene
+    //width: parent.width
+    //height: parent.height + parent.height/2
     physics: true
     debug: true
     gravity: Qt.point(0, 2)
@@ -51,12 +53,14 @@ Scene {
         birdInterval.updateInterval = 20000;
     }
 
+    /* FIXME: We need this viewport
     viewport: Viewport {
         id: gameViewport
 
         yOffset: player.y - 100
         animationDuration: 0
     }
+    */
 
     ImageLayer {
         id: mountain
@@ -116,24 +120,44 @@ Scene {
        }
     }
 
-
     Wall {
         id: leftWall
-        width: 0
+        width: 20
         anchors {
-            right: parent.left
+            left: parent.left
             top: parent.top
             bottom: parent.bottom
         }
     }
 
     /*
+        Floor {
+            anchors {
+                bottom: parent.bottom
+                right: parent.right
+            }
+            height: 20
+            width: parent.width
+        }
+
+        Ceil {
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+            y: -scene.height - height
+        }
+    */
+
+    /*
     Floor {
         anchors {
-            top: parent.bottom
             right: parent.right
+            left: parent.left
         }
-        width: parent.width + player.width
+        //width: scene.width + player.width
+        //x: 0
+        y: scene.height - 20
         height: 20
     }
 
@@ -147,6 +171,7 @@ Scene {
     */
 
     Boundaries {
+        _bounds: scene
         categories: Fixture.Category2
     }
 

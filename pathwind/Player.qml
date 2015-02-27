@@ -161,7 +161,8 @@ PhysicsEntity {
 
         if (player.playerState == "flying") {
             var impulse = Qt.point(0, -2);
-            player.fuel = Math.max(0, player.fuel - 0.044);
+            //FIXME for testing only
+            //player.fuel = Math.max(0, player.fuel - 0.044);
 
             if (player.fuel <= 0) {
                 if (player.fuelPlus == 0) {
@@ -185,7 +186,6 @@ PhysicsEntity {
 
 
     function handleCollision(other) {
-        //print (other.categories);
         //print (Fixture.Category2);
         // ground collision
         if (other.categories == Fixture.Category2) {

@@ -1,41 +1,34 @@
-/****************************************************************************
-**
-** Copyright (C) 2011 Nokia Institute of Technology.
-** All rights reserved.
-** Contact: Manager (renato.chencarek@openbossa.org)
-**
-** This file is part of the PathWind project.
-**
-** GNU Lesser General Public License Usage
-**
-** This file may be used under the terms of the GNU Lesser General Public
-** License version 2.1 as published by the Free Software Foundation and
-** appearing in the file LICENSE.LGPL included in the packaging of this
-** file. Please review the following information to ensure the GNU Lesser
-** General Public License version 2.1 requirements will be met:
-** http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
-**
-****************************************************************************/
+/*
+ * Copyright 2014 Ken VanDine <ken.vandine@ubuntu.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */
 
 import QtQuick 2.2
 import Bacon2D 1.0
 
-Item {
-    objectName: "floor"
-    height: 20
-    transformOrigin: Item.TopLeft
-    property alias body: box
-
-    property alias world: box.world
-    BoxBody {
-        id: box
-        world: scene.world
-        bodyType: Body.Static
-        categories: Fixture.Category2
+PhysicsEntity {
+    bodyType: Body.Static
+    fixtures: Box {
         x: parent.x
         y: parent.y
         width: parent.width
         height: parent.height
-        target: parent
+        friction: 1
+        density: 1
+        groupIndex: 2
+        categories: Fixture.Category2
     }
 }

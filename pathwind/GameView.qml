@@ -21,6 +21,8 @@ import Bacon2D 1.0
 
 Game {
     id: game
+    width: 1000
+    height: 600
     currentScene: menuScene
     gameName: "com.ubuntu.developer.ken-vandine.pathwind"
 
@@ -32,7 +34,21 @@ Game {
     PlayingScene {
         id: playingScene
         width: parent.width
+        // FIXME: this should be parent.height + parent.height/2
+        height: parent.height// + parent.height/2
+        /*
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors {
+            fill: parent
+            left: parent.left
+            right: parent.right
+        }
+        width: parent.width
         height: parent.height + parent.height/2
+        x: 0
+        y: 0
+        */
     }
 
     MenuScene {

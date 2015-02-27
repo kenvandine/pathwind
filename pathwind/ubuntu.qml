@@ -22,8 +22,8 @@ import Ubuntu.Components 1.1
 
 MainView {
     id: mainView
-    width: 854
-    height: 480
+    width: 1024
+    height: 800
     applicationName: gameView.gameName
 
     Page {
@@ -38,6 +38,7 @@ MainView {
 
         OrientationHelper {
             id: orientHelper
+            anchors.fill: parent
             transitionEnabled: false
             orientationAngle: parent.width > parent.height ? 0 : 90
 
