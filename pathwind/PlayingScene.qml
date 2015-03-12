@@ -133,10 +133,8 @@ Scene {
         }
         y: scene.height
         height: 2
-        width: scene.width
     }
 
-    /*
     Ceil {
         anchors {
             left: scene.left
@@ -144,9 +142,7 @@ Scene {
         }
         y: -height
         height: 2
-        width: scene.width
     }
-    */
 
     HighScore {
         id: highScoreFlag
