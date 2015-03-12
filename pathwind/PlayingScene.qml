@@ -126,22 +126,10 @@ Scene {
         }
     }
 
-    Floor {
-        anchors {
-            right: scene.right
-            left: scene.left
-        }
-        y: scene.height
-        height: 2
-    }
-
-    Ceil {
-        anchors {
-            left: scene.left
-            right: scene.right
-        }
-        y: -height
-        height: 2
+    Boundaries {
+        id:boundaries
+        _bounds: scene
+        categories: Fixture.Category2
     }
 
     HighScore {
@@ -213,12 +201,12 @@ Scene {
                 if (comp.status == Component.Ready) {
                     var object = comp.createObject(scene,
                                                    {"x": player.x + scene.width,
-                                                    "y": scene.height - Math.max((game.height * Math.random()), (game.height - height)),
+                                                    "y": (scene.height * 0.3) + Math.max(((game.height * 0.7) * Math.random()), (game.height/2 - height)),
                                                     "linearVelocity.x": -(screen.levelCount * 2)});
                     if (!object.fixedRotation)
                         object.rotation = 10 + Math.random() * 340;
                 }
-                print (scene.obstacles[i]+".qml");
+                print (scene.obstacles[i]+".qml" + "y: " + object.y + " x: " + object.x);
             }
         }
     }

@@ -41,7 +41,7 @@ Item {
 
         Box {
             x: _bounds.x
-            y: _bounds.y + _bounds.height
+            y: _bounds.height
             width: _bounds.width
             height: 2
             density: itemBody.density
@@ -53,7 +53,7 @@ Item {
         }
         Box {
             x: _bounds.x
-            y: _bounds.y - height
+            y: -height
             height: 2
             width: _bounds.width
             density: itemBody.density

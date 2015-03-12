@@ -26,8 +26,8 @@ PhysicsEntity {
     bullet: false
     sleepingAllowed: true
     fixedRotation: false
-    //angularDamping: 0.5
-    //linearDamping: 0.3
+    angularDamping: 0.5
+    linearDamping: 0.3
     linearVelocity.y: 2
     width: Math.max(image.width, 1)
     height: Math.max(image.height, 1)
