@@ -23,7 +23,7 @@ import Ubuntu.Components 1.1
 MainView {
     id: mainView
     width: 1024
-    height: 800
+    height: 600
     applicationName: gameView.gameName
 
     Page {

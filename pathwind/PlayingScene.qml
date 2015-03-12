@@ -22,8 +22,6 @@ import Bacon2D 1.0
 
 Scene {
     id: scene
-    //width: parent.width
-    //height: parent.height + parent.height/2
     physics: true
     debug: true
     gravity: Qt.point(0, 2)
@@ -53,14 +51,12 @@ Scene {
         birdInterval.updateInterval = 20000;
     }
 
-    /* FIXME: We need this viewport
     viewport: Viewport {
         id: gameViewport
 
         yOffset: player.y - 100
         animationDuration: 0
     }
-    */
 
     ImageLayer {
         id: mountain
@@ -122,7 +118,7 @@ Scene {
 
     Wall {
         id: leftWall
-        width: 20
+        width: 2
         anchors {
             left: parent.left
             top: parent.top
@@ -130,50 +126,27 @@ Scene {
         }
     }
 
-    /*
-        Floor {
-            anchors {
-                bottom: parent.bottom
-                right: parent.right
-            }
-            height: 20
-            width: parent.width
-        }
-
-        Ceil {
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-            y: -scene.height - height
-        }
-    */
-
-    /*
     Floor {
         anchors {
-            right: parent.right
-            left: parent.left
+            right: scene.right
+            left: scene.left
         }
-        //width: scene.width + player.width
-        //x: 0
-        y: scene.height - 20
-        height: 20
+        y: scene.height
+        height: 2
+        width: scene.width
     }
 
+    /*
     Ceil {
         anchors {
-            left: parent.left
-            right: parent.right
+            left: scene.left
+            right: scene.right
         }
-        y: -scene.height - height
+        y: -height
+        height: 2
+        width: scene.width
     }
     */
-
-    Boundaries {
-        _bounds: scene
-        categories: Fixture.Category2
-    }
 
     HighScore {
         id: highScoreFlag
@@ -204,7 +177,8 @@ Scene {
             script: {
                 var object = birdComp.createObject(scene,
                                                    {"x": player.x + scene.width,
-                                                    "y": (scene.y + scene.height * 0.3) + Math.max(((game.height * 0.7) * Math.random()), (game.height/2 - height))});
+                                                    "y": (scene.height * 0.3) + Math.max(((game.height * 0.7) * Math.random()), (game.height/2 - height))});
+
             }
         }
     }
