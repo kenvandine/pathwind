@@ -17,10 +17,11 @@
  */
 
 import QtQuick 2.2
+import QtQuick.Window 2.0
 import Bacon2D 1.0
 
 GameView {
     id: gameView
-    width: 854
-    height: 480
+    width: Screen.width
+    height: Screen.height
 }

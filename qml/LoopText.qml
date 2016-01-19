@@ -17,6 +17,7 @@
  */
 
 import QtQuick 2.2
+import Ubuntu.Components 1.2
 
 Item {
     id: root
@@ -29,11 +30,11 @@ Item {
 
     FontLoader { id: dPuntillasFont; source: "fonts/d-puntillas-D-to-tiptoe.ttf" }
 
-    Text {
+    Label {
         width: parent.width * 0.8
         color: "black"
         font.family: dPuntillasFont.name
-        font.pointSize: 20
+        fontSize: "medium"
         text: contents[frame.index]
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
     }

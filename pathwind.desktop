@@ -1,7 +1,10 @@
 [Desktop Entry]
 Name=PathWind
-Exec=./pathwind
+Exec=./bin/pathwind
 Icon=pathwind.png
 Terminal=false
 Type=Application
 X-Ubuntu-Touch=true
+X-Ubuntu-Splash-Color=#473743
+X-Ubuntu-Supported-Orientations=landscape
+X-Ubuntu-Default-Department-ID=games

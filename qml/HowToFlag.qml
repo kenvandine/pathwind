@@ -18,16 +18,17 @@
 ****************************************************************************/
 
 import QtQuick 2.2
+import Ubuntu.Components 1.2
 
 InfoFlag {
-    Text {
+    Label {
         anchors.centerIn: parent
         FontLoader { id: dPuntillasFont; source: "fonts/d-puntillas-D-to-tiptoe.ttf" }
         width: parent.width * 0.7
         opacity: 0.8
         color: "black"
         font.family: dPuntillasFont.name
-        font.pointSize: 32
+        fontSize: "medium"
         text: "Tap and hold to fly higher"
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
     }

@@ -3,6 +3,15 @@ folder_01.source = qml
 #folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
 
+#load Ubuntu specific features
+load(ubuntu-click)
+
+SUBDIRS += app
+
+# specify the manifest file, this file is required for click
+# packaging and for the IDE to create runconfigurations
+UBUNTU_MANIFEST_FILE=manifest.json.in
+
 QT += qml multimedia
 
 QML_IMPORT_PATH =
@@ -22,14 +31,17 @@ include(plugins/Bacon2D/src/Bacon2D-static.pri)
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
 
-ANDROID_EXTRA_LIBS = 
+PKG_FILES += pathwind.apparmor \
+             pathwind.desktop \
+             pathwind.png
 
-#ARCH = $$system($$quote(dpkg-architecture -qDEB_BUILD_ARCH))
-#manifest.files = manifest.json
-#QMAKE_SUBSTITUTES += $${manifest.files}.in
-#manifest.CONFIG = no_check_exist
-#QMAKE_EXTRA_TARGETS += manifest
-#QMAKE_CLEAN += $${manifest.files}
+#specify where the pkg files are installed to
+pkg_files.path = /
+pkg_files.files += $${PKG_FILES}
+message($$pkg_files.files)
+INSTALLS+=pkg_files
+
+ANDROID_EXTRA_LIBS = 
 
 OTHER_FILES += \
     android/AndroidManifest.xml

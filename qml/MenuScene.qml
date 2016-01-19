@@ -18,6 +18,7 @@
 ****************************************************************************/
 
 import QtQuick 2.2
+import Ubuntu.Components 1.2
 import Bacon2D 1.0
 
 Scene {
@@ -39,7 +40,7 @@ Scene {
 
             Score {
                 x: 224
-                y: 52
+                y: 40
                 rotation: -12
                 value: settings.highScore
                 transformOrigin: Item.TopLeft

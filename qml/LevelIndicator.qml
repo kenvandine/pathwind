@@ -17,12 +17,13 @@
  */
 
 import QtQuick 2.2
+import Ubuntu.Components 1.2
 
 Item {
     property var value
     FontLoader { id: dPuntillasFont; source: "fonts/d-puntillas-D-to-tiptoe.ttf" }
 
-    Text {
+    Label {
         id: levelText
         anchors { 
             verticalCenter: parent.verticalCenter
@@ -30,11 +31,11 @@ Item {
         }
         color: "white"
         font.family: dPuntillasFont.name
-        font.pointSize: 28
+        fontSize: "x-large"
         text: "Level"
     }
 
-    Text {
+    Label {
         anchors { 
             verticalCenter: parent.verticalCenter
             left: levelText.right
@@ -42,7 +43,7 @@ Item {
         }
         color: "white"
         font.family: dPuntillasFont.name
-        font.pointSize: 28
+        fontSize: "x-large"
         text: value
     }
 }
